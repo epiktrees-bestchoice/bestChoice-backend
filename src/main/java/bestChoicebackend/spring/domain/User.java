@@ -21,16 +21,20 @@ public class User {
     @Column
     private String picture;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
+    @Column
     private String phoneNumber;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
+    @Column
     private String nickName;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
+    @Column
     private String userEmail;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
+    @Column
     private String social; // KaKao, Google, facebook
 
     @Enumerated(EnumType.STRING)

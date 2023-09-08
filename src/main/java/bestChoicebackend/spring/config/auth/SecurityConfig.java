@@ -26,6 +26,8 @@ public class SecurityConfig{
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/")  )
                 .oauth2Login((oauth2Login) -> oauth2Login
+                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
+                                .baseUri("/"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService)));
         return http.build();

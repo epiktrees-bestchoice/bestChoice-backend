@@ -33,7 +33,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
          * 이후에 여러가지 추가할 때 네이버인지 구글인지 구분
          */
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        System.out.println("registrationId");
+        System.out.println("--registrationId--");
         System.out.println(registrationId);
         /* userNameAttributeName
          * OAuth2 로그인 진행 시 키가 되는 필드값 (=Primary Key)
@@ -42,7 +42,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
          */
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
-        System.out.println("userName");
+        System.out.println("--userName--");
         System.out.println(userNameAttributeName);
         /* OAuthAttributes
          * OAuth2UserService를 통해 가져온 OAuth2User의 attribute
@@ -50,9 +50,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
          */
         OAuthAttributes attributes = OAuthAttributes.
                 of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        System.out.println("--attributes--");
+        System.out.println(attributes);
 
         User user = saveOrUpdate(attributes);
-
+        System.out.println("--user--");
+        System.out.println(user);
         /* SessionUser
          * 세션에 사용자 정보를 저장하기 위한 dto 클래스
          * (User 클래스를 사용하지 않고 새로 만들었다.)
