@@ -1,4 +1,4 @@
-package bestChoicebackend.spring.config.auth;
+package bestChoicebackend.spring.config.auth.dto;
 
 import bestChoicebackend.spring.domain.Role;
 import bestChoicebackend.spring.domain.User;

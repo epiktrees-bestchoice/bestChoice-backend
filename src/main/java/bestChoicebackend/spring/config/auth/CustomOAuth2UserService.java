@@ -1,5 +1,6 @@
 package bestChoicebackend.spring.config.auth;
 
+import bestChoicebackend.spring.config.auth.dto.OAuthAttributes;
 import bestChoicebackend.spring.domain.User;
 import bestChoicebackend.spring.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
