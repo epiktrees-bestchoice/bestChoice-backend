@@ -18,8 +18,8 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    private final UserRepository userRepository;
-    private final HttpSession httpSession;
+//    private final UserRepository userRepository;
+//    private final HttpSession httpSession;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -31,6 +31,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
          * 이후에 여러가지 추가할 때 네이버인지 구글인지 구분
          */
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
+        System.out.println("registrationId");
+        System.out.println(registrationId);
 
         /* userNameAttributeName
          * OAuth2 로그인 진행 시 키가 되는 필드값 (=Primary Key)
@@ -39,33 +41,35 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
          */
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
-
+        System.out.println("userName");
+        System.out.println(userNameAttributeName);
         /* OAuthAttributes
          * OAuth2UserService를 통해 가져온 OAuth2User의 attribute
          * 네이버 등 다른 소셜 로그인도 이 클래스 사용
          */
-        OAuthAttributes attributes = OAuthAttributes.
-                of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-
-        User user = saveOrUpdate(attributes);
-
-        /* SessionUser
-         * 세션에 사용자 정보를 저장하기 위한 dto 클래스
-         * (User 클래스를 사용하지 않고 새로 만들었다.)
-         */
-        httpSession.setAttribute("user", new SessionUser(user));
-
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
-                attributes.getAttributes(),
-                attributes.getNameAttributeKey());
+//        OAuthAttributes attributes = OAuthAttributes.
+//                of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+//
+//        User user = saveOrUpdate(attributes);
+//
+//        /* SessionUser
+//         * 세션에 사용자 정보를 저장하기 위한 dto 클래스
+//         * (User 클래스를 사용하지 않고 새로 만들었다.)
+//         */
+//        httpSession.setAttribute("user", new SessionUser(user));
+//
+//        return new DefaultOAuth2User(
+//                Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
+//                attributes.getAttributes(),
+//                attributes.getNameAttributeKey());
+        return null;
     }
 
-    private User saveOrUpdate(OAuthAttributes attributes) {
-        User user = userRepository.findByUserEmail(attributes.getUSerEmail())
-                .map(entity-> entity.update(attributes.getName(), attributes.getPicture()))
-                .orElse(attributes.toEntity());
-
-        return userRepository.save(user);
-    }
+//    private User saveOrUpdate(OAuthAttributes attributes) {
+//        User user = userRepository.findByUserEmail(attributes.getUSerEmail())
+//                .map(entity-> entity.update(attributes.getName(), attributes.getPicture()))
+//                .orElse(attributes.toEntity());
+//
+//        return userRepository.save(user);
+//    }
 }
