@@ -8,22 +8,23 @@ import lombok.Getter;
 import java.util.Map;
 
 @Getter
+@Builder // 빌더 자동 생성
 public class OAuthAttributes {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String name;
     private String userEmail;
     private String picture;
-    @Builder // 빌더 자동 생성
-    public OAuthAttributes(Map<String, Object> attributes,
-                           String nameAttributeKey, String name,
-                           String userEmail,			 String picture) {
-        this.attributes = attributes;
-        this.nameAttributeKey = nameAttributeKey;
-        this.name = name;
-        this.userEmail = userEmail;
-        this.picture = picture;
-    }
+
+//    public OAuthAttributes(Map<String, Object> attributes,
+//                           String nameAttributeKey, String name,
+//                           String userEmail, String picture) {
+//        this.attributes = attributes;
+//        this.nameAttributeKey = nameAttributeKey;
+//        this.name = name;
+//        this.userEmail = userEmail;
+//        this.picture = picture;
+//    }
 
     /* of()
      * OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나 변환
