@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
 plugins {
 	id("java")
 	id("org.springframework.boot") version "3.1.3"
@@ -24,7 +25,12 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	// https://mvnrepository.com/artifact/org.projectlombok/lombok
-	compileOnly("org.projectlombok:lombok:1.18.28")
+	implementation("org.projectlombok:lombok:1.18.28")
+	annotationProcessor("org.projectlombok:lombok") // lombok 플러그
+	// test 환경
+	testImplementation("org.projectlombok:lombok")
+	testAnnotationProcessor("org.projectlombok:lombok")
+
 	// DB
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("com.mysql:mysql-connector-j")

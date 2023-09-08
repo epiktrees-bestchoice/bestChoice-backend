@@ -14,8 +14,7 @@ public class OAuthAttributes {
     private String name;
     private String userEmail;
     private String picture;
-
-    @Builder
+    @Builder // 빌더 자동 생성
     public OAuthAttributes(Map<String, Object> attributes,
                            String nameAttributeKey, String name,
                            String userEmail,			 String picture) {
@@ -25,6 +24,7 @@ public class OAuthAttributes {
         this.userEmail = userEmail;
         this.picture = picture;
     }
+
     /* of()
      * OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나 변환
      */
