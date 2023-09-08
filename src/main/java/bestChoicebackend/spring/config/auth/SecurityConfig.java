@@ -1,4 +1,4 @@
-package bestChoicebackend.spring.auth;
+package bestChoicebackend.spring.config.auth;
 
 import bestChoicebackend.spring.domain.Role;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +27,7 @@ public class SecurityConfig{
                         .logoutSuccessUrl("/")  )
                 .oauth2Login((oauth2Login) -> oauth2Login
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService));
+                                .userService(customOAuth2UserService)));
+        return http.build();
     }
 }
