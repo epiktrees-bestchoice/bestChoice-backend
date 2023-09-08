@@ -33,6 +33,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 	// 스프링 시큐리티 버전
 	implementation("org.springframework.boot:spring-boot-starter-security:5.8.6")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 	// tymelead
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 }
