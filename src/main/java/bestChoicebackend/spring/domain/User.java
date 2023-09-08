@@ -1,12 +1,15 @@
 package bestChoicebackend.spring.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +38,9 @@ public class User {
     private Role role;
 
     @Builder
-    public User(String name, String email, String picture, Role role) {
+    public User(String name, String useremail, String picture, Role role) {
         this.name = name;
-        this.email = email;
+        this.userEmail = useremail;
         this.picture = picture;
         this.role = role;
     }

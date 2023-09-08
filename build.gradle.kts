@@ -35,8 +35,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security:5.8.6")
 	// tymelead
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-
-
 }
 
 tasks.withType<KotlinCompile> {
