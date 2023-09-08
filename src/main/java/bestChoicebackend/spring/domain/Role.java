@@ -1,7 +1,5 @@
 package bestChoicebackend.spring.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -15,4 +13,5 @@ public enum Role {
 
     private final String key;
     private final String title;
+
 }
