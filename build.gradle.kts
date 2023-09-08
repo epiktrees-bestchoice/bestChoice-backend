@@ -18,16 +18,25 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	// spring
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.projectlombok:lombok:1.18.28")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly("org.projectlombok:lombok:1.18.28")
+	// DB
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("com.mysql:mysql-connector-j")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	//swagger 적용할 때, springfox 안 돼여,,,springdoc 써야함
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+	// 스프링 시큐리티 버전
+	implementation("org.springframework.boot:spring-boot-starter-security:5.8.6")
+	// tymelead
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+
 }
 
 tasks.withType<KotlinCompile> {
