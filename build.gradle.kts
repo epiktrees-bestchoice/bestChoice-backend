@@ -38,9 +38,9 @@ dependencies {
 	//swagger 적용할 때, springfox 안 돼여,,,springdoc 써야함
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 	// 스프링 시큐리티 버전
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.security:spring-security-test")
-	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+	implementation("org.springframework.boot:spring-boot-starter-security:3.1.3")
+	implementation("org.springframework.security:spring-security-test:6.1.3")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client:3.1.3")
 	// tymelead
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 }
