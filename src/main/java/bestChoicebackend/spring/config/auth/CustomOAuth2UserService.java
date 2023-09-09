@@ -68,6 +68,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 attributes.getNameAttributeKey());
     }
 
+    // 처음 회원가입하는 유저 정보 저장
+    // 유저 정보 업데이트
+    // 궁금한 점은 data source를 사용하지 않고 그냥 repository를 사용하네?
     private User saveOrUpdate(OAuthAttributes attributes) {
         User user = userRepository.findByUserEmail(attributes.getUserEmail())
                 .map(entity-> entity.update(attributes.getName(), attributes.getPicture()))
