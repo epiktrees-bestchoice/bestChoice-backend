@@ -26,6 +26,8 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+	implementation("org.springframework.boot:spring-boot-starter-mustache")
 	//swagger 적용할 때, springfox 안 돼여,,,springdoc 써야함
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 }
