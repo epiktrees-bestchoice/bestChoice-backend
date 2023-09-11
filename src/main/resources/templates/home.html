@@ -1,22 +1,22 @@
+<!DOCTYPE html>
 <html lang="en">
 <head></head>
 <body>
-    <div>
-        <h1>hi</h1>
-    </div>
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-6">
-                {{#user}}
-                Logged in as: <span id="user">{{user.name}}</span>
-                <img src={{user.picture}}>
-                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-                {{/user}}
-                {{^user}}
-                    <a href="/login" class="btn btn-success active" role="button">Google Login</a>
-                {{/user}}
-            </div>
+<div>
+    <h1>hi</h1>
+</div>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- 사용자 정보 부분 (이 부분은 로그인한 사용자의 정보를 보여주는 것 같으니, 일단 예시 데이터로 채워넣겠습니다.) -->
+            Logged in as: <span id="user">User</span>
+            <img src="example_image_url_here">
+            <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+
+            <!-- 아래의 버튼은 로그아웃 상태일 때만 보여주고 싶으시다면, CSS를 사용하여 display 속성을 조절하거나 JavaScript로 로그인 상태에 따라 표시/숨기기를 구현해야 합니다. -->
+            <a href="/login" class="btn btn-success active" role="button">Google Login</a>
         </div>
     </div>
+</div>
 </body>
 </html>

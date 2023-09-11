@@ -27,7 +27,7 @@ dependencies {
 	implementation("org.projectlombok:lombok:1.18.28")
 	annotationProcessor("org.projectlombok:lombok")
 
-	runtimeOnly("com.h2database:h2")
+	//runtimeOnly("com.h2database:h2")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
