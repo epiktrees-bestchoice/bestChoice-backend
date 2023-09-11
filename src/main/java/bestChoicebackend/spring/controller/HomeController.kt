@@ -20,9 +20,4 @@ class HomeController(
         }
         return "home.html"
     }
-
-    @GetMapping("/login")
-    fun login(model: Model):String {
-        return "login"
-    }
 }
