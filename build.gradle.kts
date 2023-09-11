@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
 	id("java")
@@ -22,14 +23,22 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
 	implementation("org.projectlombok:lombok:1.18.28")
+	annotationProcessor("org.projectlombok:lombok")
+
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 	implementation("org.springframework.boot:spring-boot-starter-mustache")
+
 	//swagger 적용할 때, springfox 안 돼여,,,springdoc 써야함
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+
+	//Google Authorization Code Flow 라이브러리 추가
+	implementation("com.google.api-client:google-api-client:1.32.1")
+
 }
 
 tasks.withType<KotlinCompile> {
