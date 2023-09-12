@@ -38,11 +38,14 @@ public class User {
     private Role role;
 
     @Builder
-    public User(String name, String userEmail, String picture, Role role) {
+    public User(String name, String userEmail, String picture, Role role, String nickName, String phoneNumber, String social) {
         this.name = name;
         this.userEmail = userEmail;
         this.picture = picture;
         this.role = role;
+        this.nickName = nickName;
+        this.phoneNumber = phoneNumber;
+        this.social = social;
     }
 
     public User update(String name, String picture) {

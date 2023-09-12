@@ -20,14 +20,14 @@ public class SecurityConfig {
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
+                        //error 페이지 추가하기
                         .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                         .anyRequest().authenticated())
                 .logout((logout)->logout
                         .logoutSuccessUrl("/"))
                 .oauth2Login((oauth2Login) -> oauth2Login
-                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
-                                .baseUri("/"))
-                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(customOAuth2UserService)));
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(customOAuth2UserService))
+                        .defaultSuccessUrl("/home", true));
         return http.build();
     }
 }
