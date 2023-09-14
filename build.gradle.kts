@@ -39,6 +39,8 @@ dependencies {
 	//Google Authorization Code Flow 라이브러리 추가
 	implementation("com.google.api-client:google-api-client:1.32.1")
 
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -51,3 +53,9 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+//configurations {
+//	all {
+//		exclude group: 'commons-logging', module: 'commons-logging'
+//	}
+//}

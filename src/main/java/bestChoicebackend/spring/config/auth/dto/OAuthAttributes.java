@@ -34,9 +34,6 @@ public class OAuthAttributes {
                 .userEmail(userEmail)
                 .picture(picture)
                 .role(Role.GUEST)	// 가입 시 기본 GUEST
-                .nickName("2")
-                .phoneNumber("1")
-                .social("google")
                 .build();
     }
 }

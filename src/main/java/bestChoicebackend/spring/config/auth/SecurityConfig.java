@@ -19,8 +19,7 @@ public class SecurityConfig {
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
-                        //error 페이지 추가하기
+                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile","/error").permitAll()
                         .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                         .anyRequest().authenticated())
                 .logout((logout)->logout

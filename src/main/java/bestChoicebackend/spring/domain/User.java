@@ -21,16 +21,16 @@ public class User {
     @Column
     private String picture;
 
-    @Column(nullable = false)
+    @Column
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column
     private String nickName;
 
-    @Column(nullable = false)
+    @Column
     private String userEmail;
 
-    @Column(nullable = false)
+    @Column
     private String social; // KaKao, Google, Facebook
 
     @Enumerated(EnumType.STRING)
@@ -43,9 +43,6 @@ public class User {
         this.userEmail = userEmail;
         this.picture = picture;
         this.role = role;
-        this.nickName = nickName;
-        this.phoneNumber = phoneNumber;
-        this.social = social;
     }
 
     public User update(String name, String picture) {

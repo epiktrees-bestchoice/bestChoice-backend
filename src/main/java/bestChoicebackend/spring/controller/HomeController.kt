@@ -10,4 +10,10 @@ class HomeController {
     fun home(model: Model): String{
         return "home"
     }
+
+    @GetMapping("/error")
+    fun error(model: Model): String {
+        model.addAttribute("error")
+        return "error"
+    }
 }
