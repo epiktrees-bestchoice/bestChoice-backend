@@ -13,4 +13,20 @@ public class HomeController {
         return "welcome! root page"; // home.html 이 노출
     }
 
+    @GetMapping("/try")
+    @ResponseBody
+    public String getTry(){
+        return "try sucess";
+    }
+
+    @GetMapping("/home")
+    public String getHome(){
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String getIndex(){
+        return "login";
+    }
+
 }
