@@ -43,6 +43,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client:3.1.3")
 	// tymelead
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	// google OAuth libary
+	implementation("com.google.api-client:google-api-client:1.32.1")
 }
 
 tasks.withType<KotlinCompile> {
