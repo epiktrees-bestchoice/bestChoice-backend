@@ -21,7 +21,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     @Bean
-    @Order(2)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers
