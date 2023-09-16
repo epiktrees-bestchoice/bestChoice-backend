@@ -30,13 +30,30 @@ public class OAuthAttributes {
      * OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나 변환
      */
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
-        return OAuthAttributes.builder()
-                .name((String) attributes.get("name"))
-                .userEmail((String) attributes.get("userEmail"))
-                .picture((String) attributes.get("picture"))
-                .attributes(attributes)
-                .nameAttributeKey(userNameAttributeName)
-                .build();
+        if (registrationId.equals("kakao")){
+            System.out.println("--user infos--");
+            Map<String, Object> kakaoAccount = (Map<String, Object>)attributes.get("kakao_account");
+            Map<String, Object> kakaoProfile = (Map<String, Object>)kakaoAccount.get("profile");
+            System.out.println((String) kakaoProfile.get("nickname"));
+            System.out.println((String) kakaoAccount.get("email"));
+
+            return OAuthAttributes.builder()
+                    .name((String) kakaoProfile.get("nickname"))
+                    .userEmail((String) kakaoAccount.get("email"))
+                    .picture((String) kakaoProfile.get("profile_image_url"))
+                    .attributes(attributes)
+                    .nameAttributeKey(userNameAttributeName)
+                    .build();
+        }
+        else {
+            return OAuthAttributes.builder()
+                    .name((String) attributes.get("name"))
+                    .userEmail((String) attributes.get("email"))
+                    .picture((String) attributes.get("picture"))
+                    .attributes(attributes)
+                    .nameAttributeKey(userNameAttributeName)
+                    .build();
+        }
     }
 
     /* toEntity()

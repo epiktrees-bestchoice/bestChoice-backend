@@ -44,6 +44,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .getUserInfoEndpoint().getUserNameAttributeName();
         System.out.println("--userName--");
         System.out.println(userNameAttributeName);
+        System.out.println("--userRequest--");
+        System.out.println(userRequest);
         /* OAuthAttributes
          * OAuth2UserService를 통해 가져온 OAuth2User의 attribute
          * 네이버 등 다른 소셜 로그인도 이 클래스 사용
@@ -51,7 +53,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes.
                 of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
         System.out.println("--attributes--");
-        System.out.println(attributes);
+        System.out.println(attributes.getAttributes());
+        System.out.println("--oAuth2User name--");
+        System.out.println(oAuth2User.getName());
 
         User user = saveOrUpdate(attributes);
         System.out.println("--user--");
