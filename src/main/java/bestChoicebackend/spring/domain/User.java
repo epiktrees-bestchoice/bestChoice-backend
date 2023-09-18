@@ -42,16 +42,19 @@ public class User {
     private Role role;
 
     @Builder
-    public User(String name, String userEmail, String picture, Role role) {
+    public User(String name, String nickName,String userEmail, String picture, Role role, String social) {
         this.name = name;
+        this.nickName =nickName;
         this.userEmail = userEmail;
         this.picture = picture;
         this.role = role;
+        this.social = social;
     }
 
-    public User update(String name, String picture) {
+    public User update(String name,String nickName,  String picture) {
         this.name = name;
         this.picture = picture;
+        this.nickName = nickName;
         return this;
     }
 
