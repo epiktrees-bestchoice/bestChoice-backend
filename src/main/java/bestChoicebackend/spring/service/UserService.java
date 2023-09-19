@@ -43,10 +43,10 @@ public class UserService {
     public Optional<User> findByName(String name) {return userRepository.findByName(name);}
 
     // 회원 정보 업데이트
-    public Long update(User user, String name, String nickName, String picture){
+    public String update(User user, String name, String nickName, String picture){
         // entity를 update하면 jpa가 자동으로 Hibernate update를 수행
         user.update(name, nickName, picture);
-        return user.getUserId();
+        return user.getUserEmail();
     }
 
 
