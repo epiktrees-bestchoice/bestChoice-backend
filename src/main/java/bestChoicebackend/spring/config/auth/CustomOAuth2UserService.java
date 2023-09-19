@@ -52,14 +52,14 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
          */
         OAuthAttributes attributes = OAuthAttributes.
                 of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+
         System.out.println("--attributes--");
         System.out.println(attributes.getAttributes());
         System.out.println("--oAuth2User name--");
         System.out.println(oAuth2User.getName());
 
         User user = saveOrUpdate(attributes);
-        System.out.println("--user--");
-        System.out.println(user);
+
         /* SessionUser
          * 세션에 사용자 정보를 저장하기 위한 dto 클래스
          * (User 클래스를 사용하지 않고 새로 만들었다.)
@@ -76,8 +76,14 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     // 유저 정보 업데이트
     // 궁금한 점은 data source를 사용하지 않고 그냥 repository를 사용하네?
     private User saveOrUpdate(OAuthAttributes attributes) {
+
+        // 다른 소셜로 가입했다면, 다시 가입하지 못하게
+
         User user = userRepository.findByUserEmail(attributes.getUserEmail())
-                .map(entity-> entity.update(attributes.getName(), attributes.getPicture()))
+                .map(entity-> entity.update(
+                        attributes.getName(),
+                        attributes.getNickName(),
+                        attributes.getPicture()))
                 .orElse(attributes.toEntity());
 
         return userRepository.save(user);
