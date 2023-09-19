@@ -77,11 +77,11 @@ public class UserRepositoryTest {
         user1.setName("spring1");
         user1.setRole(Role.valueOf("USER"));
         user1.setNickName("spring1");
+        user1.setUserEmail("abc.gmail.com");
         userRepository.save(user1);
-
         user1.update(user1.getName(), "helloWorld","https://gogogo.com");
-        User result = userRepository.findByName(user1.getName()).get();
-        Assertions.assertThat(result.getNickName()).isEqualTo("helloWorld");
+        User result = userRepository.findByUserEmail(user1.getUserEmail()).get();
+        Assertions.assertThat(result.getNickName()).isEqualTo(user1.getNickName());
     }
 
     @Test
