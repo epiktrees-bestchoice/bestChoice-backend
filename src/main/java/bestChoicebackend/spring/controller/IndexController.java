@@ -1,7 +1,5 @@
 package bestChoicebackend.spring.controller;
 
-import bestChoicebackend.spring.config.auth.dto.SessionUser;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
