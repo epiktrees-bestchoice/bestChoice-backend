@@ -12,7 +12,7 @@ import java.util.Date;
 public class UserLike {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long userLikeId;
+    private Long userLikeId;
 
     @ManyToOne(cascade = CascadeType.REMOVE) // 현재 클래스 : 목표 클래스 = N : 1
     @JoinColumn(name = "userId", nullable = false, columnDefinition = "Long")
