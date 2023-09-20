@@ -51,10 +51,11 @@ public class User {
         this.social = social;
     }
 
-    public User update(String name, String nickName,  String picture) {
+    public User update(String name, String nickName, String picture, String phoneNumber) {
         this.name = name;
         this.picture = picture;
         this.nickName = nickName;
+        this.phoneNumber = phoneNumber;
         return this;
     }
 

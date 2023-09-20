@@ -1,6 +1,7 @@
 package bestChoicebackend.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ public enum Role {
     USER("ROLE_USER", "일반 사용자");
 
     private final String key;
+    @Getter
     private final String title;
     Role(String key, String title){
         this.key = key;
@@ -29,14 +31,16 @@ public enum Role {
         return null;
     }
 
+    // Role 객체를 Json으로 출력하기 위해 JsonValue라는 어트리뷰트를 사용한다.
+    // role에 key 값을 넘겨준다.
+
     @JsonValue
     public String getKey(){
         return this.key;
     }
 
-    @JsonValue
-    public String getTitle(){
-        return this.title;
-    }
+//    public String getTitle(){
+//        return this.title;
+//    }
 
 }
