@@ -37,9 +37,9 @@ class SwaggerConfig(private val objectMapper: ObjectMapper) {
             )
         )
     }
-
-    @Bean
-    fun objectMapper(): ObjectMapper {
-        return ObjectMapper()
-    }
+//
+//    @Bean
+//    fun objectMapper(): ObjectMapper {
+//        return ObjectMapper()
+//    }
 }

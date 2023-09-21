@@ -43,28 +43,10 @@ public class UserService {
     public Optional<User> findByName(String name) {return userRepository.findByName(name);}
 
     // 회원 정보 업데이트
-    public User update(User user, String name, String nickName,  String phoneNumber, String picture){
+    public String update(User user, String name, String nickName, String picture){
         // entity를 update하면 jpa가 자동으로 Hibernate update를 수행
-
-        String updatedName;
-        if(name==null) updatedName = user.getName();
-        else updatedName = name.isEmpty() ? user.getName() : name;
-
-        String updatedNickName;
-        if(nickName==null) updatedNickName = user.getNickName();
-        else updatedNickName = nickName.isEmpty() ? user.getNickName() : nickName;
-
-        String updatedPhoneNumber;
-        if(phoneNumber==null) updatedPhoneNumber = user.getPhoneNumber();
-        else updatedPhoneNumber = phoneNumber.isEmpty() ? user.getPhoneNumber() : phoneNumber;
-
-        String updatedPicture;
-        if(picture==null) updatedPicture = user.getPicture();
-        else updatedPicture = picture.isEmpty() ? user.getPicture() : picture;
-
-
-        user.update(updatedName, updatedNickName, updatedPhoneNumber, updatedPicture);
-        return user;
+        user.update(name, nickName, picture);
+        return user.getUserEmail();
     }
 
 
