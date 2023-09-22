@@ -2,7 +2,7 @@ name : Deploy Image to AWS
 on :
   push:
     branches:
-      - develop
+      - githubAction
 jobs :
   build:
     runs-on: ubuntu-latest
