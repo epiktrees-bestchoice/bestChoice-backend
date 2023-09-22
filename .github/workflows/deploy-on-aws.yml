@@ -28,6 +28,6 @@ jobs :
           IMAGE_TAG: 1
         run: |
           # Build a docker container and push it to ECR 
-          docker-compose build -f docker-compose-dev.yml
+          docker-compose -f docker-compose-dev.yml build
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
