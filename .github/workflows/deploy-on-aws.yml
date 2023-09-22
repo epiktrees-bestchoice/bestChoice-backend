@@ -37,8 +37,8 @@ jobs :
         run: |
           # Build a docker container and push it to ECR 
           ./gradlew build - x test |
-          docker-compose build
-          echo "Pushing image to ECR..."
+          docker-compose build |
+          echo "Pushing image to ECR..." |
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
