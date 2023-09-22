@@ -10,6 +10,22 @@ jobs :
       - name: branch checkout
         uses: actions/checkout@v2
 
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradle
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+
+      - name: Copy Jar
+        run: cp ./build/libs/spring-0.0.1-SNAPSHOT.jar app.jar
+
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -17,23 +33,6 @@ jobs :
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ap-northeast-2
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build and Push image to Amazon ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: docker-spring-mysql
-          IMAGE_TAG: 1
-        run: |
-          # Build a docker image and push it to ECR 
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:spring -f Dockerfile .
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:db -f Dockerfile.mysql .
-          echo "Pushing image to ECR..."
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:spring
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:db
-
       - name: Upload Docker Compose to S3
         run: |
-          aws s3 cp docker-compose.yml s3://solsol-springboot-s3/docker-compose.yml
+          aws s3 cp app.jar s3://solsol-springboot-s3/app.jar
