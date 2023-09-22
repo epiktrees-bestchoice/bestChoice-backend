@@ -31,3 +31,7 @@ jobs :
           docker-compose -f docker-compose-dev.yml build
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Upload Docker Compose to S3
+        run: |
+          aws s3 cp docker-compose.yml s3://solsol-springboot-s3/docker-compose.yml
