@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: 636000351401.dkr.ecr.ap-northeast-2.amazonaws.com/docker-spring-mysql:1
+    image: 636000351401.dkr.ecr.ap-northeast-2.amazonaws.com/docker-spring-mysql:spring
     ports:
       - 8080:8080
     environment:
@@ -23,7 +23,10 @@ services:
 
   mysqldb :
     container_name: mysqldb
-    image: mysql:8.1.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    image: 636000351401.dkr.ecr.ap-northeast-2.amazonaws.com/docker-spring-mysql:db
     volumes:
       - ./db:/var/lib/mysql
     ports:

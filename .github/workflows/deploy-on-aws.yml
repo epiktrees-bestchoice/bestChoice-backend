@@ -27,10 +27,12 @@ jobs :
           ECR_REPOSITORY: docker-spring-mysql
           IMAGE_TAG: 1
         run: |
-          # Build a docker container and push it to ECR 
-          docker-compose -f docker-compose-dev.yml build
+          # Build a docker image and push it to ECR 
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:spring -f Dockerfile .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:db -f Dockerfile.mysql .
           echo "Pushing image to ECR..."
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:spring
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:db
 
       - name: Upload Docker Compose to S3
         run: |
