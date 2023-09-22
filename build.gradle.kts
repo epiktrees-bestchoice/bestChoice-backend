@@ -33,6 +33,7 @@ dependencies {
 
 	// DB
 	//runtimeOnly("com.h2database:h2")
+
 	runtimeOnly("com.mysql:mysql-connector-j")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	//swagger 적용할 때, springfox 안 돼여,,,springdoc 써야함

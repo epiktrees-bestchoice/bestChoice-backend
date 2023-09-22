@@ -79,7 +79,7 @@ public class UserRepositoryTest {
         user1.setNickName("spring1");
         user1.setUserEmail("abc.gmail.com");
         userRepository.save(user1);
-        user1.update(user1.getName(), "helloWorld",user1.getPhoneNumber(),"https://gogogo.com");
+        user1.update(user1.getName(), "helloWorld","https://gogogo.com");
         User result = userRepository.findByUserEmail(user1.getUserEmail()).get();
         Assertions.assertThat(result.getNickName()).isEqualTo(user1.getNickName());
     }

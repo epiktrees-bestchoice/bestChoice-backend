@@ -27,6 +27,7 @@ public class SecurityConfig{
                         .requestMatchers("/login","/try/**").permitAll()
 //                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
 //                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/oauth2/authorization/**").permitAll()
                         .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                         .anyRequest().authenticated())
                 .logout((logout) -> logout
@@ -37,7 +38,7 @@ public class SecurityConfig{
                                 .userService(customOAuth2UserService))
 //                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
 //                                .baseUri("/"))
-                        .defaultSuccessUrl("/"));
+                        .defaultSuccessUrl("http://localhost:3000/"));
         return http.build();
     }
 

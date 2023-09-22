@@ -106,7 +106,7 @@ public class OAuthAttributes {
                 .userEmail(userEmail)
                 .social(social)
                 .picture(picture)
-                .role(Role.USER)	// 가입 기본 권한 == USER
+                .role(Role.GUEST)	// 가입 기본 권한 == GUEST
                 .build();
     }
 }
