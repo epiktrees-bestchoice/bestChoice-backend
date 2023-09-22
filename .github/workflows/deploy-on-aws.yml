@@ -2,21 +2,13 @@ name : Deploy Image to AWS
 on :
   push:
     branches:
-      - develop
+      - githubAction
 jobs :
   build:
     runs-on: ubuntu-latest
     steps:
       - name: branch checkout
         uses: actions/checkout@v2
-
-      - name: Setup java
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
-      - name: Setup gradle
-        uses: gradle/gradle-build-action@v2
 
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -29,16 +21,15 @@ jobs :
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag, and push image to Amazon ECR
+      - name: Build and Push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: docker-spring-mysql
           IMAGE_TAG: 1
         run: |
           # Build a docker container and push it to ECR 
-          ./gradlew build - x test |
-          docker-compose build |
-          echo "Pushing image to ECR..." |
+          docker-compose build
+          echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
