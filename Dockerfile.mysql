@@ -1,0 +1,13 @@
+# Use an official MySQL runtime as a parent image
+FROM mysql:8.1.0
+
+# Add any custom configurations if needed
+# COPY my.cnf /etc/mysql/my.cnf
+
+ENV MYSQL_USER: myspringboot
+ENV MYSQL_PASSWORD: 3219
+ENV MYSQL_DATABASE: myseconddb
+ENV MYSQL_ROOT_PASSWORD: root
+
+# Expose the default MySQL port
+EXPOSE 3306

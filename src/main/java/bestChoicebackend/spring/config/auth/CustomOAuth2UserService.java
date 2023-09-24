@@ -79,11 +79,14 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         // 다른 소셜로 가입했다면, 다시 가입하지 못하게
 
+//        User user = userRepository.findByUserEmail(attributes.getUserEmail())
+//                .map(entity-> entity.update(
+//                        attributes.getName(),
+//                        attributes.getNickName(),
+//                        attributes.getPicture()))
+//                .orElse(attributes.toEntity());
+
         User user = userRepository.findByUserEmail(attributes.getUserEmail())
-                .map(entity-> entity.update(
-                        attributes.getName(),
-                        attributes.getNickName(),
-                        attributes.getPicture()))
                 .orElse(attributes.toEntity());
 
         return userRepository.save(user);
