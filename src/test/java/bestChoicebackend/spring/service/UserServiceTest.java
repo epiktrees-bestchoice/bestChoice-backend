@@ -76,8 +76,8 @@ public class UserServiceTest {
         user1.setUserEmail("abc@gmail.com");
 
         userService.join(user1);
-        String updateEmail = userService.update(user1, user1.getName(), "springHellow", user1.getPicture());
-        User finduser = userService.findByUserEmail(updateEmail).get();
+        User updatedUser = userService.update(user1, user1.getName(), "springHellow", user1.getPhoneNumber(), user1.getPicture());
+        User finduser = userService.findByUserEmail(updatedUser.getUserEmail()).get();
         assertThat(finduser.getNickName()).isEqualTo("springHellow");
     }
 }

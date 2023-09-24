@@ -1,8 +1,8 @@
-name : Deploy Image to AWS
+name : Deploy Jar to AWS S3
 on :
   push:
     branches:
-      - githubAction
+      - main
 jobs :
   build:
     runs-on: ubuntu-latest
@@ -33,6 +33,6 @@ jobs :
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ap-northeast-2
 
-      - name: Upload Docker Compose to S3
+      - name: Upload Jar Compose to S3
         run: |
           aws s3 cp app.jar s3://solsol-springboot-s3/app.jar
