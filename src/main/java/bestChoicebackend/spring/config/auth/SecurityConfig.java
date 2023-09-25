@@ -39,14 +39,14 @@ public class SecurityConfig{
 //                        .authorizationCodeGrant(codeGrant -> codeGrant
 //                                .accessTokenResponseClient(customOAuth2AccessTokenResponseClient)))
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .loginPage("/login")
+                        .loginPage("https://next-bestchoice-project.vercel.app/user")
                         .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
                                 .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
 //                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
 //                                .baseUri("/"))
-                        .defaultSuccessUrl("/"));
+                        .defaultSuccessUrl("https://next-bestchoice-project.vercel.app/"));
         return http.build();
     }
 
