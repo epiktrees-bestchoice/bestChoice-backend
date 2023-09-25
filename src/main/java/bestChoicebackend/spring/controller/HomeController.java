@@ -1,5 +1,9 @@
 package bestChoicebackend.spring.controller;
 
+import bestChoicebackend.spring.domain.Accommodation;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,8 +31,12 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String getIndex(){
-        return "login";
+    @ResponseBody
+    public ResponseEntity<Boolean> getIsLogin(){
+        System.out.println("Redirect login page");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "https://next-bestchoice-project.vercel.app/user");
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
 }

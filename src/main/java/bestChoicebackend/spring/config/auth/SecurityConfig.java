@@ -39,7 +39,7 @@ public class SecurityConfig{
 //                        .authorizationCodeGrant(codeGrant -> codeGrant
 //                                .accessTokenResponseClient(customOAuth2AccessTokenResponseClient)))
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .loginPage("https://next-bestchoice-project.vercel.app/user")
+                        .loginPage("/loginneed")
                         .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
                                 .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
