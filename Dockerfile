@@ -3,7 +3,7 @@ FROM --platform=linux/amd64 gradle:8.2.1-jdk17-alpine
 # gradle 복사
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-n
+
 # 프로젝트 소스코드 복사
 COPY gradle gradle
 COPY src/main/java src/main/java
