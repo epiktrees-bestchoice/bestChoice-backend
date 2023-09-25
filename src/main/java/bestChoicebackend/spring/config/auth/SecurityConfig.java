@@ -39,7 +39,7 @@ public class SecurityConfig{
 //                        .authorizationCodeGrant(codeGrant -> codeGrant
 //                                .accessTokenResponseClient(customOAuth2AccessTokenResponseClient)))
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .loginPage("/loginneed")
+                        .loginPage("/login")
                         .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
                                 .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
