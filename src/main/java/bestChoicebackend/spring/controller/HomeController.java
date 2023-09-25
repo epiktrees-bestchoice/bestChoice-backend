@@ -10,6 +10,8 @@ public class HomeController {
     @GetMapping("/")
     @ResponseBody
     public String home() {
+
+        System.out.println("root page test!!");
         return "welcome! root page"; // home.html 이 노출
     }
 
