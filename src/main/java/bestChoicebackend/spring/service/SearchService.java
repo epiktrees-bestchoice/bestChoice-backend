@@ -1,7 +1,7 @@
 package bestChoicebackend.spring.service;
 
 import bestChoicebackend.spring.domain.Accommodation;
-import bestChoicebackend.spring.repostiory.AccommodationRepository;
+import bestChoicebackend.spring.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

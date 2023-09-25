@@ -27,7 +27,7 @@ public class SearchController {
      */
     @GetMapping("/api/v1/search/result/{text}")
     public Page<Accommodation> findByAccommodationName(@PathVariable("text") String text,
-                                          @PageableDefault(size=10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){
+                                          @PageableDefault(size=10, direction = Sort.Direction.DESC)Pageable pageable){
         Page<Accommodation> accommodations = searchService.findByAccommodationName(text, pageable);
         return accommodations;
     }
