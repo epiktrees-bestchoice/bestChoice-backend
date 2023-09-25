@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -30,5 +32,12 @@ public class AccommodationController {
             log.info("Accommodation NOT FOUND");
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+    /**
+     * 전체 숙소 List 반환
+     */
+    @GetMapping("/api/product/accommodation/all")
+    public List<Accommodation> findAll(){
+        return accommodationService.findAll();
     }
 }
