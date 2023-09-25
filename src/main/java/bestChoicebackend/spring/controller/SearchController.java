@@ -20,7 +20,7 @@ public class SearchController {
      * 숙소 검색
      * 검색어가 포함된 숙소 리스트 Page 객체로 10개씩 반환
      */
-    @GetMapping("/api/vi/search/result/{text}")
+    @GetMapping("/api/v1/search/result/{text}")
     public Page<Accommodation> findByAccommodationName(@PathVariable("text") String text,
                                           @PageableDefault(size=10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){
         Page<Accommodation> accommodations = searchService.findByAccommodationName(text, pageable);
