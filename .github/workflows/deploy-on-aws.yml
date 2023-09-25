@@ -35,4 +35,4 @@ jobs :
 
       - name: Upload Jar Compose to S3
         run: |
-          aws s3 cp app.jar s3://solsol-springboot-s3/app1.jar
+          aws s3 cp app1.jar s3://solsol-springboot-s3/app1.jar
