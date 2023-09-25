@@ -1,0 +1,32 @@
+package bestChoicebackend.spring.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class HomeController {
+
+    @GetMapping("/")
+    @ResponseBody
+    public String home() {
+        return "welcome! root page"; // home.html 이 노출
+    }
+
+    @GetMapping("/try")
+    @ResponseBody
+    public String getTry(){
+        return "try sucess";
+    }
+
+    @GetMapping("/home")
+    public String getHome(){
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String getIndex(){
+        return "login";
+    }
+
+}

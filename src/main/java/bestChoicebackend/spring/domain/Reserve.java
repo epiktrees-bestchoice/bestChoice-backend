@@ -23,9 +23,9 @@ public class Reserve {
     Accommodation accommodationId;
 
     @Column
-    private Date reserveDate;
+    private Date reserveDate; // 예약 시작 시간
 
     @Column
-    private Long stayDay;
+    private Long stayDay; // 예약 기간
 
 }
