@@ -35,11 +35,13 @@ public class SecurityConfig{
                         .anyRequest().authenticated())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/")  )
-                .oauth2Client(oauth2 -> oauth2
-                        .authorizationCodeGrant(codeGrant -> codeGrant
-                                .accessTokenResponseClient(customOAuth2AccessTokenResponseClient)))
+//                .oauth2Client(oauth2 -> oauth2
+//                        .authorizationCodeGrant(codeGrant -> codeGrant
+//                                .accessTokenResponseClient(customOAuth2AccessTokenResponseClient)))
                 .oauth2Login(oauth2Login -> oauth2Login
                         .loginPage("/login")
+                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
+                                .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
 //                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
