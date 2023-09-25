@@ -1,7 +1,9 @@
 package bestChoicebackend.spring.controller;
 
 import bestChoicebackend.spring.domain.Accommodation;
+import bestChoicebackend.spring.service.AccommodationService;
 import bestChoicebackend.spring.service.SearchService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 public class SearchController {
+
     private final SearchService searchService;
 
     /**
@@ -26,6 +31,7 @@ public class SearchController {
         Page<Accommodation> accommodations = searchService.findByAccommodationName(text, pageable);
         return accommodations;
     }
+
 
 
 }
