@@ -26,7 +26,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2AccessTokenResponseClient customOAuth2AccessTokenResponseClient;
-    private CorsConfigurationSource corsConfigurationSource;
+    private final CorsConfigurationSource corsConfigurationSource;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
