@@ -30,28 +30,20 @@ class ReserveService(
         reserveRepository.save(reserve)
     }
 
-    fun getUserReservation(reserveDto: ReserveDto): List<ReserveDto> {
-        val reserves = reserveRepository.findByUserId(reserveDto.userId)
+    fun getUserReservation(userId: Long): List<Reserve> {
 
-        return reserves.map {
-            ReserveDto(
-                reserveId = reserveDto.reserveId,
-                userId = reserveDto.userId,
-                accommodationId = reserveDto.accommodationId
-            )
-        }
+        val user = userRepository.findByUserId(userId).orElse(null)
+                ?: return emptyList() // 유저를 찾을 수 없을 경우 빈 리스트 반환
+
+        return reserveRepository.findByUserId(user)
     }
 
-    fun getReservationsByAccommodation(reserveDto: ReserveDto): List<ReserveDto> {
-        val reserves = reserveRepository.findByAccommodationId(reserveDto.accommodationId)
 
-        return reserves.map {
-            ReserveDto(
-                reserveId = reserveDto.reserveId,
-                userId = reserveDto.userId,
-                accommodationId = reserveDto.accommodationId
-            )
-        }
+    fun getReservationsByAccommodation(accommodationId: Long): List<Reserve> {
+        val accommodation = accommodationRepository.findByAccommodationId(accommodationId).orElse(null)
+                ?: return emptyList() // 유저를 찾을 수 없을 경우 빈 리스트 반환
+
+        return reserveRepository.findByAccommodationId(accommodation)
     }
 
     fun deleteReserve(reserveId: Long) {

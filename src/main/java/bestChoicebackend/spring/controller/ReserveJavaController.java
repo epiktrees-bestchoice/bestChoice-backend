@@ -19,6 +19,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/reserve")
@@ -50,7 +51,7 @@ public class ReserveJavaController {
         // 시작 날짜와 끝 날짜 사이의 기간 계산
         long period = ChronoUnit.DAYS.between(startDate, endDate);
 
-        List<ReserveDto> reservationsOfAccommodation = reserveService.getReservationsByAccommodation(reserveDto);
+        List<Reserve> reservationsOfAccommodation = reserveService.getReservationsByAccommodation(reserveDto.getAccommodationId());
 
         // 현재 숙박업소가 예약이 없는 경우,
         if(reservationsOfAccommodation.isEmpty()){
@@ -59,8 +60,9 @@ public class ReserveJavaController {
         }
         else{
 
-            for (ReserveDto existingReservation : reservationsOfAccommodation) {
-                Reserve reservedInfo = reserveRepository.findReserveId(existingReservation.getReserveId());
+            for (Reserve existingReservation : reservationsOfAccommodation) {
+
+                Reserve reservedInfo = reserveRepository.findByReserveId(existingReservation.getReserveId());
 
                 // 기존 예약의 시작일과 종료일
 //                LocalDate existingStartDate = reservedInfo.getReserveDate().toLocalDate();
@@ -83,6 +85,13 @@ public class ReserveJavaController {
         }
     }
 
+    @GetMapping("/user/accommodations")
+    public List<Reserve> getUserReserve(@RequestParam(name = "userId") Long userId){
+        return reserveService.getUserReservation(userId);
+    }
 
-
+    @GetMapping("/product/accommodations")
+    public List<Reserve> getAccommodationReserve(@RequestParam(name = "accommodationId") Long accommodationId){
+        return reserveService.getReservationsByAccommodation(accommodationId);
+    }
 }
