@@ -1,9 +1,11 @@
 package bestChoicebackend.spring.config.auth;
 
 import bestChoicebackend.spring.domain.Role;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -26,12 +29,24 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2AccessTokenResponseClient customOAuth2AccessTokenResponseClient;
-    private final CorsConfigurationSource corsConfigurationSource;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .cors(withDefaults())
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration config = new CorsConfiguration();
+                        config.setAllowedOrigins((Arrays.asList("http://localhost:3000","https://epicktrees.net")));
+                        config.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin",
+                                "Access-Control-Allow-Headers" ,
+                                "Access-Control-Allow-Credentials"));
+                        config.setAllowCredentials(true);
+                        System.out.println(config.getAllowedOrigins());
+                        config.setAllowedHeaders(Collections.singletonList("*"));
+                        config.setMaxAge(3600L);
+                        return config;
+                    }
+                }))
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
@@ -60,17 +75,6 @@ public class SecurityConfig{
         return http.build();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://epicktrees.net","http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
 
 
 }

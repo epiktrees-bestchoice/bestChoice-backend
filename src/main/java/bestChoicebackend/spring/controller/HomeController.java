@@ -35,8 +35,7 @@ public class HomeController {
     public ResponseEntity<Boolean> getIsLogin(){
         System.out.println("Redirect login page");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "https://next-bestchoice-project.vercel.app/user");
+        headers.add("Location", "https://epicktrees.net/user");
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
-
 }
