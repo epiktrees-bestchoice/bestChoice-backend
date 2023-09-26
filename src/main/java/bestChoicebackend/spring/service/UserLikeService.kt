@@ -1,9 +1,7 @@
 package bestChoicebackend.spring.service
 
 import bestChoicebackend.spring.dto.UserLikeDTO
-import bestChoicebackend.spring.repository.AccommodationRepository
 import bestChoicebackend.spring.repository.UserLikeRepository
-import bestChoicebackend.spring.repository.UserRepository
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
