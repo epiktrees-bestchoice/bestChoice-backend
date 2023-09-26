@@ -54,7 +54,7 @@ public class SecurityConfig{
                                 .userService(customOAuth2UserService))
 //                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
 //                                .baseUri("/"))
-                        .defaultSuccessUrl("https://next-bestchoice-project.vercel.app/"));
+                        .defaultSuccessUrl("https://epicktrees.net/"));
         return http.build();
     }
 
