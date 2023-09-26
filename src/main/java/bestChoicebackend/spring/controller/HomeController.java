@@ -1,6 +1,5 @@
 package bestChoicebackend.spring.controller;
 
-import bestChoicebackend.spring.domain.Accommodation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,4 +37,5 @@ public class HomeController {
         headers.add("Location", "https://epicktrees.net/user");
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
+
 }
