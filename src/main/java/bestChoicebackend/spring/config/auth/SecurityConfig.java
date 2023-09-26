@@ -26,10 +26,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2AccessTokenResponseClient customOAuth2AccessTokenResponseClient;
+    private CorsConfigurationSource corsConfigurationSource;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .cors(withDefaults())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
