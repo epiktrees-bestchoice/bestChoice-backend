@@ -14,7 +14,8 @@ public class CorsConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://epicktrees.net","https://localhost:3000")
+                        .exposedHeaders("Set-Cookie")
+                        .allowedOrigins("https://epicktrees.net","https://localhost:3000","http://localhost:8080")
                         .allowCredentials(true)
                         .allowedHeaders("JSESSIONID","Cookie")
                         .allowedMethods("GET","POST");
