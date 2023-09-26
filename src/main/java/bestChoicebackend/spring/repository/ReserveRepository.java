@@ -10,6 +10,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
     Reserve save(Reserve reserve);
 
+    Reserve findReserveId(Long reserveId);
     List<Reserve> findByUserId(Long userId); // Reserve 아니면 Null 둘 중하나 선택
     List<Reserve> findByAccommodationId(Long accommodationId);
 
