@@ -30,6 +30,7 @@ public class HomeController {
     }
 
     @GetMapping("/login")
+
     @ResponseBody
     public ResponseEntity<Boolean> getIsLogin(){
         System.out.println("Redirect login page");
