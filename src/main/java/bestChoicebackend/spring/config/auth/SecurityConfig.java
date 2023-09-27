@@ -50,11 +50,9 @@ public class SecurityConfig{
                         .loginPage("/login")
                         .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
                                 .baseUri("/oauth2/code/*"))
-                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
-                                .baseUri("/hello"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService)));
-//                        .defaultSuccessUrl("https://api.epicktrees.net/hello"));
+                                .userService(customOAuth2UserService))
+                        .defaultSuccessUrl("https://api.epicktrees.net/hello-world"));
         return http.build();
     }
 
