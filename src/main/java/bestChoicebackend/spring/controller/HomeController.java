@@ -1,11 +1,13 @@
 package bestChoicebackend.spring.controller;
 
+
 import bestChoicebackend.spring.config.auth.dto.SessionUser;
 import bestChoicebackend.spring.domain.Accommodation;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +38,13 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String getIsLogin(){
-        return "login";
+
+    @ResponseBody
+    public ResponseEntity<Boolean> getIsLogin(){
+        System.out.println("Redirect login page");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "https://epicktrees.net/user");
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
     @GetMapping("hello-world")
