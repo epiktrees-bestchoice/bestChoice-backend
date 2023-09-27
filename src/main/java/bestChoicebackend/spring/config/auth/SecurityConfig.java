@@ -32,22 +32,22 @@ public class SecurityConfig{
 //                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
 //                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/product/**").permitAll()
-                        .requestMatchers("/oauth2/authorization/**").permitAll()
+                        .requestMatchers("/oauth2/authorization/**","/oauth2/code/**").permitAll()
                         .requestMatchers("/api/v1/**").permitAll()
                         .anyRequest().authenticated())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/")  )
-                .oauth2Client(oauth2 -> oauth2
-                        .authorizationCodeGrant(codeGrant -> codeGrant
-                                .accessTokenResponseClient(customOAuth2AccessTokenResponseClient)))
+//                .oauth2Client(oauth2 -> oauth2
+//                        .authorizationCodeGrant(codeGrant -> codeGrant
+//                                .accessTokenResponseClient(customOAuth2AccessTokenResponseClient)))
                 .oauth2Login(oauth2Login -> oauth2Login
                         .loginPage("/login")
                         .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
                                 .baseUri("/oauth2/code/*"))
-                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService))
                         .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
-                                .baseUri("/hello")));
+                                .baseUri("/hello"))
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                                .userService(customOAuth2UserService)));
 //                        .defaultSuccessUrl("https://api.epicktrees.net/hello"));
         return http.build();
     }
