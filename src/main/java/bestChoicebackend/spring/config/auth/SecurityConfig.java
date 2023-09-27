@@ -34,7 +34,7 @@ public class SecurityConfig{
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/login","/try/**").permitAll()
+                        .requestMatchers("/login","/try/**","/hello").permitAll()
 //                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
 //                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/product/**").permitAll()
