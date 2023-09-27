@@ -28,7 +28,7 @@ public class SecurityConfig{
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/login","/try/**").permitAll()
+                        .requestMatchers("/login","/try/**","/hello").permitAll()
 //                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
 //                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/product/**").permitAll()
@@ -46,11 +46,12 @@ public class SecurityConfig{
                                 .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
-//                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
-//                                .baseUri("/"))
-                        .defaultSuccessUrl("https://epicktrees.net/"));
+                        .redirectionEndpoint(redirectionEndpointConfig -> redirectionEndpointConfig
+                                .baseUri("/hello")));
+//                        .defaultSuccessUrl("https://api.epicktrees.net/hello"));
         return http.build();
     }
+
 
 
 
