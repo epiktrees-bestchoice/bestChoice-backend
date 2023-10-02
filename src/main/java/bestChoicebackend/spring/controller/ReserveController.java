@@ -1,9 +1,13 @@
 package bestChoicebackend.spring.controller;
 
+import bestChoicebackend.spring.config.auth.dto.SessionUser;
 import bestChoicebackend.spring.domain.Reserve;
+import bestChoicebackend.spring.domain.User;
 import bestChoicebackend.spring.dto.ReserveDto;
 import bestChoicebackend.spring.repository.ReserveRepository;
 import bestChoicebackend.spring.service.ReserveService;
+import bestChoicebackend.spring.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +23,7 @@ import java.util.List;
 public class ReserveController {
     private final ReserveService reserveService;
     private final ReserveRepository reserveRepository;
-
+    private final UserService userService;
     @PostMapping("/user/accommodation")
     public ReserveDto accommodationAdd(
             @RequestBody ReserveDto reserveDto,
@@ -73,8 +77,17 @@ public class ReserveController {
     }
 
     @GetMapping("/user/accommodations")
-    public List<Reserve> getUserReserve(@RequestParam(name = "userId") Long userId){
-        return reserveService.getUserReservation(userId);
+    public List<Reserve> getUserReserve(@RequestParam(name = "userId") Long userId, HttpSession httpSession){
+        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
+        User user = userService.findByUserEmail(sessionUser.getEmail())
+                .orElseThrow();
+        if(user.getUserId().equals(userId)){
+            return reserveService.getUserReservation(userId);
+        }
+        else{
+            return null;
+        }
+
     }
 
     @GetMapping("/product/accommodations")
