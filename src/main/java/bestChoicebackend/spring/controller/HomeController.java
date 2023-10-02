@@ -36,8 +36,12 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String getIsLogin(){
-        return "login";
+    @ResponseBody
+    public ResponseEntity<Boolean> getIsLogin(){
+        System.out.println("Redirect login page");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "http://localhost:3000/user");
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
     @GetMapping("hello-world")
@@ -49,7 +53,6 @@ public class HomeController {
         else{
             System.out.println("로그인 못했습니다.");
         }
-        System.out.println("Redirect login page");
         Cookie[] myCookies = request.getCookies();
 
         if (myCookies != null) {
@@ -61,13 +64,13 @@ public class HomeController {
                     // JSESSIONID 쿠키를 새로운 쿠키로 설정
                     Cookie myCookie = new Cookie(myCookies[i].getName(), myCookies[i].getValue());
                     myCookie.setMaxAge(3600);
-                    myCookie.setDomain("epicktrees.net");
+                    myCookie.setDomain("localhost:3000");
                     myCookie.setPath("/"); // 모든 경로에서 접근 가능하도록 설정
                     response.addCookie(myCookie);
                 }
             }
         }
-        return "redirect:https://epicktrees.net";
+        return "redirect:http://localhost:3000";
     }
 
 }
