@@ -40,7 +40,7 @@ public class HomeController {
     public ResponseEntity<Boolean> getIsLogin(){
         System.out.println("Redirect login page");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "http://localhost:3000/user");
+        headers.add("Location", "http://epicktrees.net/user");
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
@@ -64,7 +64,7 @@ public class HomeController {
                     // JSESSIONID 쿠키를 새로운 쿠키로 설정
                     Cookie myCookie = new Cookie(myCookies[i].getName(), myCookies[i].getValue());
                     myCookie.setMaxAge(3600);
-                    myCookie.setDomain("");
+                    myCookie.setDomain("epicktrees.net");
                     myCookie.setPath("/"); // 모든 경로에서 접근 가능하도록 설정
                     response.addCookie(myCookie);
                 }
