@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -40,10 +41,14 @@ public class HomeController {
     public ResponseEntity<Boolean> getIsLogin(){
         System.out.println("Redirect login page");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "http://epicktrees.net/user");
+        headers.add("Location", "https://epicktrees.net/user");
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
+    @PostMapping("/my/logout")
+    public String performLogout() {
+        return "redirect:http://epicktrees.net";
+    }
     @GetMapping("hello-world")
     public String  getIsLogin(HttpSession httpSession, HttpServletRequest request, HttpServletResponse response){
         SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
@@ -64,13 +69,13 @@ public class HomeController {
                     // JSESSIONID 쿠키를 새로운 쿠키로 설정
                     Cookie myCookie = new Cookie(myCookies[i].getName(), myCookies[i].getValue());
                     myCookie.setMaxAge(3600);
-                    myCookie.setDomain("epicktrees.net");
+                    myCookie.setDomain("");
                     myCookie.setPath("/"); // 모든 경로에서 접근 가능하도록 설정
                     response.addCookie(myCookie);
                 }
             }
         }
-        return "redirect:http://localhost:3000";
+        return "redirect:http://epicktrees.net";
     }
 
 }

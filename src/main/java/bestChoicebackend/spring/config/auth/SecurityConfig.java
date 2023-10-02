@@ -26,6 +26,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2AccessTokenResponseClient customOAuth2AccessTokenResponseClient;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -52,7 +53,10 @@ public class SecurityConfig{
                                 .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
-                        .defaultSuccessUrl("https://api.epicktrees.net/hello-world"));
+                        .defaultSuccessUrl("https://api.epicktrees.net/hello-world"))
+                .logout(logout -> logout
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("https://epicktrees.net/my/logout"));
         return http.build();
     }
 
