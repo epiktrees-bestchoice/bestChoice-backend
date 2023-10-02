@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public void  userLogout(HttpServletResponse response, HttpSession httpSession){
+    public String  userLogout(HttpServletResponse response, HttpSession httpSession){
         SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
         System.out.println(sessionUser.getName()+"을 제거합니다.");
         httpSession.removeAttribute("usr");
@@ -64,6 +64,7 @@ public class UserController {
         myCookie.setPath("/"); // 모든 경로에서 삭제됨
         myCookie.setDomain("");
         response.addCookie(myCookie);
+        return "redirect:http://epicktrees.net";
     }
 
 }
