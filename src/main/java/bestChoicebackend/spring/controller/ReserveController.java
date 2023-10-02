@@ -1,15 +1,9 @@
 package bestChoicebackend.spring.controller;
 
-import bestChoicebackend.spring.config.auth.dto.SessionUser;
 import bestChoicebackend.spring.domain.Reserve;
-import bestChoicebackend.spring.domain.User;
 import bestChoicebackend.spring.dto.ReserveDto;
-import bestChoicebackend.spring.dto.UserInfoRequestDto;
 import bestChoicebackend.spring.repository.ReserveRepository;
-import bestChoicebackend.spring.service.AccommodationService;
 import bestChoicebackend.spring.service.ReserveService;
-import bestChoicebackend.spring.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -17,33 +11,30 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/reserve")
 @RequiredArgsConstructor
-public class ReserveJavaController {
-    private final AccommodationService accommodationService;
-    private final UserService userService;
+public class ReserveController {
     private final ReserveService reserveService;
     private final ReserveRepository reserveRepository;
 
     @PostMapping("/user/accommodation")
-    public ReserveDto accommodationAdd(@RequestBody ReserveDto reserveDto,
-                                        @RequestParam(name = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                                       @RequestParam(name = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
+    public ReserveDto accommodationAdd(
+            @RequestBody ReserveDto reserveDto,
+            @RequestParam(name = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+            @RequestParam(name = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
     ){
 
         LocalDate currentDate = LocalDate.now();
 
-        // startDate가 null이면 현재 날짜를 사용
+        // startDate 가 null 이면 현재 날짜를 사용
         if (startDate == null) {
             startDate = currentDate;
         }
 
-        // endDate가 null이면 현재 날짜를 사용
+        // endDate 가 null 이면 현재 날짜를 사용
         if (endDate == null) {
             endDate = currentDate;
         }
@@ -53,12 +44,8 @@ public class ReserveJavaController {
 
         List<Reserve> reservationsOfAccommodation = reserveService.getReservationsByAccommodation(reserveDto.getAccommodationId());
 
-        // 현재 숙박업소가 예약이 없는 경우,
-        if(reservationsOfAccommodation.isEmpty()){
-            reserveService.addReservation(reserveDto);
-            return reserveDto;
-        }
-        else{
+        // 현재 숙박 업소가 예약이 없는 경우,
+        if (!reservationsOfAccommodation.isEmpty()) {
 
             for (Reserve existingReservation : reservationsOfAccommodation) {
 
@@ -80,9 +67,9 @@ public class ReserveJavaController {
             }
 
             // 겹치는 예약이 없는 경우, 새로운 예약 추가
-            reserveService.addReservation(reserveDto);
-            return reserveDto;
         }
+        reserveService.addReservation(reserveDto);
+        return reserveDto;
     }
 
     @GetMapping("/user/accommodations")
