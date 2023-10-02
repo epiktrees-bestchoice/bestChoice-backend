@@ -62,7 +62,7 @@ public class UserController {
         Cookie myCookie = new Cookie("JSESSIONID", null);
         myCookie.setMaxAge(0); // 쿠키의 expiration 타임을 0으로 하여 제거
         myCookie.setPath("/"); // 모든 경로에서 삭제됨
-        myCookie.setDomain("epicktrees.net");
+        myCookie.setDomain("");
         response.addCookie(myCookie);
     }
 
