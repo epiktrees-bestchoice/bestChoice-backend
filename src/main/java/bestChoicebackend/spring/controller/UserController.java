@@ -55,16 +55,24 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public String  userLogout(HttpServletResponse response, HttpSession httpSession){
-        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
-        System.out.println(sessionUser.getName()+"을 제거합니다.");
-        httpSession.removeAttribute("usr");
-        Cookie myCookie = new Cookie("JSESSIONID", null);
-        myCookie.setMaxAge(0); // 쿠키의 expiration 타임을 0으로 하여 제거
-        myCookie.setPath("/"); // 모든 경로에서 삭제됨
-        myCookie.setDomain("");
-        response.addCookie(myCookie);
-        return "redirect:http://epicktrees.net";
+    public void  userLogout(HttpServletResponse response, HttpSession httpSession){
+        try {
+            SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
+            System.out.println(sessionUser.getName() + "을 제거합니다.");
+            httpSession.removeAttribute("user");
+
+//            Cookie myCookie = new Cookie("JSESSIONID", null);
+//            myCookie.setMaxAge(0);
+//            myCookie.setPath("/");
+//            myCookie.setDomain("");
+//            response.addCookie(myCookie);
+
+            // 로그아웃 성공 시 HTTP 상태 코드 200(OK)를 반환
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
+            // 로그아웃 실패 시 HTTP 상태 코드 500(Internal Server Error)를 반환
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

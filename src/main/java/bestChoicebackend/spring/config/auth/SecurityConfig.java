@@ -53,10 +53,7 @@ public class SecurityConfig{
                                 .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
-                        .defaultSuccessUrl("https://api.epicktrees.net/hello-world"))
-                .logout(logout -> logout
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("https://epicktrees.net/my/logout"));
+                        .defaultSuccessUrl("https://api.epicktrees.net/hello-world"));
         return http.build();
     }
 
