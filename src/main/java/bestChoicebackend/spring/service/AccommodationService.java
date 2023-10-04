@@ -55,7 +55,7 @@ public class AccommodationService {
                 String nowRegion = regions.get(j);
                 for(int k=0; k<4; k++){
                     Accommodation accommodation = new Accommodation();
-                    accommodation.setAccommodationName(String.valueOf(i++j+k+1)+"번째 숙소");
+                    accommodation.setAccommodationName(String.valueOf(i+j+k+1)+"번째 숙소");
                     accommodation.setType(nowAccomodationType);
                     accommodation.setRegion(nowRegion);
                     accommodation.setPrice(Long.valueOf(k * 10000));

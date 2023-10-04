@@ -39,7 +39,7 @@ public class AccommodationController {
     }
 
     @GetMapping("/api/product/accommodation/createinit")
-    public List<Accommodation> createInit() {return accommodationService.createInit()}
+    public List<Accommodation> createInit() {return accommodationService.createInit();}
 
     @PostMapping("/api/product/accommodation/trash")
     public void deleteAll(){

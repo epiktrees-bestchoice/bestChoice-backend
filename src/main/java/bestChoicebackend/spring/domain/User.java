@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     @Column(nullable = false)
@@ -21,30 +20,92 @@ public class User {
     @Column
     private String picture;
 
-    //@Column(nullable = false)
     @Column
     private String phoneNumber;
 
-    //@Column(nullable = false)
     @Column
     private String nickName;
 
-//    @Column(nullable = false)
     @Column
     private String userEmail;
 
-//    @Column(nullable = false)
     @Column
-    private String social; // KaKao, Google, facebook
+    private String social;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    @Builder
-    public User(String name, String nickName,String userEmail, String picture, Role role, String social) {
+    // Getter 메서드
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getSocial() {
+        return social;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    // Setter 메서드
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.nickName =nickName;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setSocial(String social) {
+        this.social = social;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @Builder
+    public User(String name, String nickName, String userEmail, String picture, Role role, String social) {
+        this.name = name;
+        this.nickName = nickName;
         this.userEmail = userEmail;
         this.picture = picture;
         this.role = role;
