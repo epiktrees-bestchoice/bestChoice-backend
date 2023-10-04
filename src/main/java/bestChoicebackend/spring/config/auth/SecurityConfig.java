@@ -1,6 +1,5 @@
 package bestChoicebackend.spring.config.auth;
 
-import bestChoicebackend.spring.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
