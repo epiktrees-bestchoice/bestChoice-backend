@@ -20,6 +20,12 @@ public class KeywordDto {
     public static class KeywordType {
         private Long keywordId;
         private String keywordName;
+
+
+        public KeywordType(Long keywordId, String keywordName) {
+            this.keywordId = keywordId;
+            this.keywordName = keywordName;
+        }
     }
 
     @Getter
@@ -27,5 +33,10 @@ public class KeywordDto {
     public static class MTypeType {
         private Long mTypeId;
         private String mTypeName;
+
+        public MTypeType(Long mTypeId, String mTypeName) {
+            this.mTypeId = mTypeId;
+            this.mTypeName = mTypeName;
+        }
     }
 }

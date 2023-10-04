@@ -31,7 +31,7 @@ public class AccommodationService {
     public List<Accommodation> findAll(){
         List<AccommodationType> accommodationTypes = new ArrayList<AccommodationType>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
         List<String> regions = new ArrayList<String>(List.of("경기","서울","부산","제주","인천"));
-        String baseImgUrl = "https://openreactsol.s3.ap-northeast-2.amazonaws.com/accommodations/";
+        String baseImgUrl = "https://d3dp03fmze904.cloudfront.net/accommodations/";
 
         for (int i=0;i<10;i++){
             Accommodation accommodation = new Accommodation();
