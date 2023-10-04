@@ -26,6 +26,6 @@ public class Reserve {
     private Date reserveDate; // 예약 시작 시간
 
     @Column
-    private Long stayDay; // 예약 기간
+    private Date endDate; // 예약 기간
 
 }

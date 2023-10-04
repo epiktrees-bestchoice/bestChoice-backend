@@ -1,6 +1,7 @@
 package bestChoicebackend.spring.service
 
 import bestChoicebackend.spring.domain.Reserve
+import bestChoicebackend.spring.domain.User
 import bestChoicebackend.spring.dto.ReserveDto
 import bestChoicebackend.spring.repository.AccommodationRepository
 import bestChoicebackend.spring.repository.ReserveRepository
@@ -25,25 +26,29 @@ class ReserveService(
         val reserve = Reserve().apply {
             this.userId = user
             this.accommodationId = accommodation
+            this.reserveDate = reserveDto.reserveDate
+            this.endDate = reserveDto.endDate
         }
 
         reserveRepository.save(reserve)
     }
 
-    fun getUserReservation(userId: Long): List<Reserve> {
+    fun getUserReservation(userId: Long): List<ReserveDto> {
+        val user = userRepository.findById(userId)
+            .orElseThrow { EntityNotFoundException("Not found") }
 
-        val user = userRepository.findByUserId(userId).orElse(null)
-                ?: return emptyList() // 유저를 찾을 수 없을 경우 빈 리스트 반환
-
-        return reserveRepository.findByUserId(user)
+        return reserveRepository.findByUserId(user).map {
+            ReserveDto(it.reserveId, it.userId.userId, it.accommodationId.accommodationId, it.reserveDate, it.endDate)
+        }
     }
 
+    fun getReservationsByAccommodation(accommodationId: Long): List<ReserveDto> {
+        val accommodation = accommodationRepository.findById(accommodationId)
+            .orElseThrow { EntityNotFoundException("Accommodation not found") }
 
-    fun getReservationsByAccommodation(accommodationId: Long): List<Reserve> {
-        val accommodation = accommodationRepository.findByAccommodationId(accommodationId).orElse(null)
-                ?: return emptyList() // 유저를 찾을 수 없을 경우 빈 리스트 반환
-
-        return reserveRepository.findByAccommodationId(accommodation)
+        return reserveRepository.findByAccommodationId(accommodation).map {
+            ReserveDto(it.reserveId, it.userId.userId, it.accommodationId.accommodationId, it.reserveDate, it.endDate)
+        }
     }
 
     fun deleteReserve(reserveId: Long) {
