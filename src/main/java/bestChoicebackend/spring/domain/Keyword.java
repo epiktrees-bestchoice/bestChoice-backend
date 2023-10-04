@@ -19,8 +19,8 @@ public class Keyword {
 
     // Title that fits the category
     @Column(nullable = true)
-    private Long mTypeId;
+    private Long mtypeId;
 
     @Column(nullable = true)
-    private String mTypeName;
+    private String mtypeName;
 }

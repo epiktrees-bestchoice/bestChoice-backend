@@ -1,13 +1,13 @@
 package bestChoicebackend.spring.service;
 
 import bestChoicebackend.spring.domain.Keyword;
-import bestChoicebackend.spring.domain.MType;
+import bestChoicebackend.spring.domain.Mtype;
 import bestChoicebackend.spring.dto.KeywordDto;
-import bestChoicebackend.spring.repository.AccommodationRepository;
 import bestChoicebackend.spring.repository.KeywordRepository;
-import bestChoicebackend.spring.repository.MTypeRepository;
+import bestChoicebackend.spring.repository.MtypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,26 +16,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KeywordService {
     private final KeywordRepository keywordRepository;
-    private final MTypeRepository mTypeRepository;
+    private final MtypeRepository mtypeRepository;
 
     public KeywordDto findByCategoryId(Long categoryId) {
 
-        List<MType> mTypes = mTypeRepository.findByCategoryId(categoryId);
-
+        List<Mtype> mTypes = mtypeRepository.findByCategoryId(categoryId);
+        if (mTypes.isEmpty()) {
+            throw new NotFoundException("No data found for categoryId: " + categoryId);
+        }
         KeywordDto keywordDto = new KeywordDto();
         keywordDto.setCategoryId(categoryId);
         keywordDto.setCategoryName(mTypes.get(0).getCategoryName());
 
-        List<KeywordDto.MTypeType> mTypeList = new ArrayList<>();
-        for(MType m : mTypes){
-            mTypeList.add(new KeywordDto.MTypeType(m.getMTypeId(), m.getMTypeName()));
+        List<KeywordDto.MtypeType> mtypeList = new ArrayList<>();
+        for(Mtype m : mTypes){
+            mtypeList.add(new KeywordDto.MtypeType(m.getMtypeId(), m.getMtypeName()));
         }
-        keywordDto.setMTypeList(mTypeList);
+        keywordDto.setMtypeList(mtypeList);
 
         List<List<KeywordDto.KeywordType>> keywordList = new ArrayList<>();
-        for(MType m : mTypes){
+        for(Mtype m : mTypes){
             List<KeywordDto.KeywordType> keywordTypeList = new ArrayList<>();
-            List<Keyword> keywords = keywordRepository.findKeywordByMTypeId(m.getMTypeId());
+            List<Keyword> keywords = keywordRepository.findByMtypeId(m.getMtypeId());
             for(Keyword keyword : keywords){
                 keywordTypeList.add(new KeywordDto.KeywordType(keyword.getKeywordId(), keyword.getKeywordName()));
             }
@@ -46,4 +48,7 @@ public class KeywordService {
 
         return keywordDto;
     }
+
+    // keyword Adding init
+
 }

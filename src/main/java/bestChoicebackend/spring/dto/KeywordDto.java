@@ -12,7 +12,7 @@ import java.util.List;
 public class KeywordDto {
     private Long categoryId;
     private String categoryName;
-    private List<MTypeType> mTypeList;
+    private List<MtypeType> mtypeList;
     private List<List<KeywordType>> keywordList;
 
     @Getter
@@ -30,13 +30,13 @@ public class KeywordDto {
 
     @Getter
     @Setter
-    public static class MTypeType {
-        private Long mTypeId;
-        private String mTypeName;
+    public static class MtypeType {
+        private Long mtypeId;
+        private String mtypeName;
 
-        public MTypeType(Long mTypeId, String mTypeName) {
-            this.mTypeId = mTypeId;
-            this.mTypeName = mTypeName;
+        public MtypeType(Long mTypeId, String mTypeName) {
+            this.mtypeId = mTypeId;
+            this.mtypeName = mTypeName;
         }
     }
 }

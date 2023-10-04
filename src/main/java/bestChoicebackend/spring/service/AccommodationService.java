@@ -58,9 +58,9 @@ public class AccommodationService {
                     accommodation.setAccommodationName(String.valueOf(i+j+k+1)+"번째 숙소");
                     accommodation.setType(nowAccomodationType);
                     accommodation.setRegion(nowRegion);
-                    accommodation.setPrice(Long.valueOf(k * 10000));
-                    accommodation.setIntroduce("hihi~ intro of accommodation");
-                    accommodation.setImgUrl(baseImgUrl + String.valueOf(nowAccomodationType)+ String.valueOf(k) +".jpg");
+                    accommodation.setPrice(Long.valueOf((k+1) * 10000));
+                    accommodation.setIntroduce("hihi~ intro of accommodation "+String.valueOf(i+j+k+1)+"번째 숙소");
+                    accommodation.setImgUrl(baseImgUrl + String.valueOf(nowAccomodationType)+ String.valueOf(k+1) +".jpg");
                     accommodationRepository.save(accommodation);
                 }
             }

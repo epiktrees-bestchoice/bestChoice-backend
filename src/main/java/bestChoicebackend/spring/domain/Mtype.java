@@ -7,14 +7,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class MType {
+public class Mtype {
     // Title that fits the category
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mTypeId;
+    private Long mtypeId;
 
     @Column(nullable = true)
-    private String mTypeName;
+    private String mtypeName;
 
     // like pension, hotel etc...
     @Column

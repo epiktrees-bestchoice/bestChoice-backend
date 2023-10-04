@@ -34,7 +34,7 @@ public class SecurityConfig{
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/login","/try/**","/hello").permitAll()
+                        .requestMatchers("/login","/try/**","/hello","/swagger-ui.html").permitAll()
 //                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
 //                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/product/**").permitAll()
@@ -53,6 +53,7 @@ public class SecurityConfig{
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
                         .defaultSuccessUrl("https://api.epicktrees.net/hello-world"));
+//                        .defaultSuccessUrl("http://localhost:8080"));
         return http.build();
     }
 
