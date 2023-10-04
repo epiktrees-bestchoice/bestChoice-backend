@@ -7,20 +7,19 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Keyword {
-
-    // Title에 맞는 keyword
+public class MType {
+    // Title that fits the category
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long keywordId;
-
-    @Column
-    private String keywordName;
-
-    // Title that fits the category
-    @Column(nullable = true)
     private Long mTypeId;
 
     @Column(nullable = true)
     private String mTypeName;
+
+    // like pension, hotel etc...
+    @Column
+    private Long categoryId;
+
+    @Column
+    private String categoryName;
 }

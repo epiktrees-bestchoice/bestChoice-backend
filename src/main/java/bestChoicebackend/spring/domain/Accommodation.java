@@ -22,6 +22,9 @@ public class Accommodation {
     private Long price;
 
     @Column
+    private String imgUrl;
+
+    @Column
     private String region;
 
     @Column

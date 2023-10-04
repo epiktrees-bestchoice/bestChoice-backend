@@ -31,6 +31,8 @@ public class AccommodationService {
     public List<Accommodation> findAll(){
         List<AccommodationType> accommodationTypes = new ArrayList<AccommodationType>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
         List<String> regions = new ArrayList<String>(List.of("경기","서울","부산","제주","인천"));
+        String baseImgUrl = "https://openreactsol.s3.ap-northeast-2.amazonaws.com/accommodations/";
+
         for (int i=0;i<10;i++){
             Accommodation accommodation = new Accommodation();
             accommodation.setAccommodationName(String.valueOf(i+1)+"번째 숙소");
@@ -38,8 +40,14 @@ public class AccommodationService {
             accommodation.setRegion(regions.get(i % 5));
             accommodation.setPrice(Long.valueOf(i * 10000));
             accommodation.setIntroduce("hihi~");
+            accommodation.setImgUrl("");
             accommodationRepository.save(accommodation);
         }
         return accommodationRepository.findAll();
+    }
+
+
+    public void deleteAll() {
+        accommodationRepository.deleteAll();
     }
 }
