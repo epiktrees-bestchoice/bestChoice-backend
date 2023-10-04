@@ -38,6 +38,9 @@ public class AccommodationController {
         return accommodationService.findAll();
     }
 
+    @GetMapping("/api/product/accommodation/createinit")
+    public List<Accommodation> createInit() {return accommodationService.createInit()}
+
     @PostMapping("/api/product/accommodation/trash")
     public void deleteAll(){
         accommodationService.deleteAll();

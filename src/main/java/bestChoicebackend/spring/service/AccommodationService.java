@@ -31,8 +31,6 @@ public class AccommodationService {
     public List<Accommodation> findAll(){
         List<AccommodationType> accommodationTypes = new ArrayList<AccommodationType>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
         List<String> regions = new ArrayList<String>(List.of("경기","서울","부산","제주","인천"));
-        String baseImgUrl = "https://d3dp03fmze904.cloudfront.net/accommodations/";
-
         for (int i=0;i<10;i++){
             Accommodation accommodation = new Accommodation();
             accommodation.setAccommodationName(String.valueOf(i+1)+"번째 숙소");
@@ -40,12 +38,35 @@ public class AccommodationService {
             accommodation.setRegion(regions.get(i % 5));
             accommodation.setPrice(Long.valueOf(i * 10000));
             accommodation.setIntroduce("hihi~");
-            accommodation.setImgUrl("");
             accommodationRepository.save(accommodation);
         }
         return accommodationRepository.findAll();
     }
 
+    public List<Accommodation> createInit(){
+        List<AccommodationType> accommodationTypes = new ArrayList<AccommodationType>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
+        List<String> regions = new ArrayList<String>(List.of("경기","서울","부산","제주","인천"));
+        String baseImgUrl = "https://d3dp03fmze904.cloudfront.net/accommodations/";
+
+        // 5(type) x 5(region) x 4(images) = 100
+        for(int i=0; i<5; i++){
+            AccommodationType nowAccomodationType = accommodationTypes.get(i);
+            for(int j=0; j<5; j++){
+                String nowRegion = regions.get(j);
+                for(int k=0; k<4; k++){
+                    Accommodation accommodation = new Accommodation();
+                    accommodation.setAccommodationName(String.valueOf(i++j+k+1)+"번째 숙소");
+                    accommodation.setType(nowAccomodationType);
+                    accommodation.setRegion(nowRegion);
+                    accommodation.setPrice(Long.valueOf(k * 10000));
+                    accommodation.setIntroduce("hihi~ intro of accommodation");
+                    accommodation.setImgUrl(baseImgUrl + String.valueOf(nowAccomodationType)+ String.valueOf(k) +".jpg");
+                    accommodationRepository.save(accommodation);
+                }
+            }
+        }
+        return accommodationRepository.findAll();
+    }
 
     public void deleteAll() {
         accommodationRepository.deleteAll();
