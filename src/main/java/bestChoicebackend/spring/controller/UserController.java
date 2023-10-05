@@ -4,6 +4,8 @@ import bestChoicebackend.spring.config.auth.dto.SessionUser;
 import bestChoicebackend.spring.domain.User;
 import bestChoicebackend.spring.dto.UserInfoRequestDto;
 import bestChoicebackend.spring.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +52,27 @@ public class UserController {
                 userInfoRequestDto.getPicture());
 
         return user;
+    }
+
+    @PostMapping("/logout")
+    public void  userLogout(HttpServletResponse response, HttpSession httpSession){
+        try {
+            SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
+            System.out.println(sessionUser.getName() + "을 제거합니다.");
+            httpSession.removeAttribute("user");
+
+//            Cookie myCookie = new Cookie("JSESSIONID", null);
+//            myCookie.setMaxAge(0);
+//            myCookie.setPath("/");
+//            myCookie.setDomain("");
+//            response.addCookie(myCookie);
+
+            // 로그아웃 성공 시 HTTP 상태 코드 200(OK)를 반환
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
+            // 로그아웃 실패 시 HTTP 상태 코드 500(Internal Server Error)를 반환
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

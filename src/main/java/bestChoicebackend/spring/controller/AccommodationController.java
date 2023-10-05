@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +36,13 @@ public class AccommodationController {
     @GetMapping("/api/product/accommodation/all")
     public List<Accommodation> findAll(){
         return accommodationService.findAll();
+    }
+
+    @GetMapping("/api/product/accommodation/createinit")
+    public List<Accommodation> createInit() {return accommodationService.createInit();}
+
+    @PostMapping("/api/product/accommodation/trash")
+    public void deleteAll(){
+        accommodationService.deleteAll();
     }
 }
