@@ -29,6 +29,10 @@ public class AccommodationService {
         return accommodation.orElse(null);
     }
 
+    public List<Accommodation> findByAccommodationType(String accommodationType){
+        return accommodationRepository.findAllByTypeAndRegion(AccommodationType.valueOf(accommodationType), "서울");
+    }
+
     /**
      * 전체 숙소 List 반환
      */

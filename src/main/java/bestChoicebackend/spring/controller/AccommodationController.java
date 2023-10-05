@@ -33,9 +33,14 @@ public class AccommodationController {
     /**
      * 전체 숙소 List 반환
      */
-    @GetMapping("/api/product/accommodation/all")
-    public List<Accommodation> findAll(){
-        return accommodationService.findAll();
+//    @GetMapping("/api/product/accommodation/all")
+//    public List<Accommodation> findAll(){
+//        return accommodationService.findAll();
+//    }
+
+    @GetMapping("api/product/accommodation/dumy/{accommodationType}")
+    public List<Accommodation> findByAccommodationType(@PathVariable("accommdationType") String accommodationType){
+        return accommodationService.findByAccommodationType(accommodationType);
     }
 
     @GetMapping("/api/product/accommodation/createinit")
