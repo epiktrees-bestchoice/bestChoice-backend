@@ -14,7 +14,7 @@ public class Accommodation {
     private String accommodationName;
 
     @Column(nullable = false)
-    private AccommodationType type; // 호텔, 모텔 리조트, 팬션, ...
+    private AccommodationType accommodationType; // 호텔, 모텔 리조트, 팬션, ...
 
     @Column(nullable = false)
     private Long price;
@@ -38,7 +38,7 @@ public class Accommodation {
     }
 
     public AccommodationType getType() {
-        return type;
+        return accommodationType;
     }
 
     public Long getPrice() {
@@ -66,7 +66,7 @@ public class Accommodation {
     }
 
     public void setType(AccommodationType type) {
-        this.type = type;
+        this.accommodationType = type;
     }
 
     public void setPrice(Long price) {

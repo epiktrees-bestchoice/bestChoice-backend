@@ -1,11 +1,13 @@
 package bestChoicebackend.spring.repository;
 
-import bestChoicebackend.spring.domain.Accommodation;
-import bestChoicebackend.spring.domain.Reserve;
-import bestChoicebackend.spring.domain.User;
-import org.jetbrains.annotations.NotNull;
+import bestChoicebackend.spring.domain.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,4 +21,12 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
     @NotNull
     List<Reserve> findAll();
+
+    @Query(value = "SELECT reserve " +
+            "FROM Reserve reserve " +
+            "WHERE :date >= reserve.reserveDate and :date <= reserve.endDate "+
+            "and reserve.accommodationId.accommodationType= :type "+
+            "and reserve.accommodationId.region= :region"
+    )
+    List<Reserve> findReservedAccommodation(@Param("type") AccommodationType type, @Param("region") Region region, @Param("date") Date date);
 }
