@@ -18,19 +18,6 @@ class ReserveService(
 ) {
 
     fun addReservation(reserveDto: ReserveDto) {
-        val user = userRepository.findById(reserveDto.userId)
-            .orElseThrow {EntityNotFoundException("Not found")}
-
-        val accommodation = accommodationRepository.findById(reserveDto.accommodationId)
-            .orElseThrow { EntityNotFoundException("Not found") }
-
-//        val reserve = Reserve().apply {
-//            this.userId = user
-//            this.accommodationId = accommodation
-//            this.reserveDate = reserveDto.reserveDate
-//            this.endDate = reserveDto.endDate
-//        }
-
         val reserve = reserveRepository.findByReserveId(reserveDto.reserveId)
 
         reserveRepository.save(reserve)
@@ -38,11 +25,6 @@ class ReserveService(
 
     fun getUserReservation(reserveDto: ReserveDto): Optional<ReserveDto>? {
         val user = userRepository.findById(reserveDto.userId)
-//            .orElseThrow { EntityNotFoundException("Not found") }
-
-//        return reserveRepository.findByUserId(user).map {
-//            ReserveDto(it.reserveId, it.userId.userId, it.accommodationId.accommodationId, it.reserveDate, it.endDate)
-//        }
 
         return user.map {
             ReserveDto(
