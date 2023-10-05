@@ -21,16 +21,25 @@ public class KeywordController {
         return keywordService.findByCategoryId(categoyId);
     }
 
-    @PostMapping("mtype")
+    @PostMapping("/mtype")
     public Mtype MtypeAdd(Mtype mtype){
         keywordService.mtypeAdd(mtype);
         return mtype;
     }
 
-    @PostMapping("keyword")
+    @PostMapping("/keyword")
     public Keyword KeywordAdd(Keyword keyword){
         keywordService.keywordAdd(keyword);
         return keyword;
     }
 
+    @DeleteMapping("/mtypeinit")
+    public void MtypeInit(){
+        keywordService.deleteMtypeAll();
+    }
+
+    @DeleteMapping("/keywordinit")
+    public void keywordInit(){
+        keywordService.deleteKeywordAll();
+    }
 }

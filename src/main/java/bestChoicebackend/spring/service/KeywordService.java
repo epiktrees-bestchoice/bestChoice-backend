@@ -59,4 +59,11 @@ public class KeywordService {
     }
 
 
+    public void deleteMtypeAll() {
+        mtypeRepository.deleteAll();
+    }
+
+    public void deleteKeywordAll() {
+        keywordRepository.deleteAll();
+    }
 }
