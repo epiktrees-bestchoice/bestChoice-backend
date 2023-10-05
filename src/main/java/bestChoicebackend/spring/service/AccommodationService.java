@@ -2,6 +2,7 @@ package bestChoicebackend.spring.service;
 
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationType;
+import bestChoicebackend.spring.domain.Region;
 import bestChoicebackend.spring.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,12 @@ public class AccommodationService {
      */
     public List<Accommodation> findAll(){
         List<AccommodationType> accommodationTypes = new ArrayList<AccommodationType>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
-        List<String> regions = new ArrayList<String>(List.of("경기","서울","부산","제주","인천"));
+        List<Region> regions = new ArrayList<Region>(List.of(Region.SEOUL, Region.BUSAN, Region.JEJU, Region.GANGWON, Region.INCHEON, Region.GYEONGSANG, Region.JEOLLA, Region.CHUNGCHEONG));
         for (int i=0;i<10;i++){
             Accommodation accommodation = new Accommodation();
-            accommodation.setAccommodationName(String.valueOf(i+1)+"번째 숙소");
+            accommodation.setAccommodationName(String.valueOf(accommodation.getAccommodationId())+"번째 숙소");
             accommodation.setType(accommodationTypes.get(i % 5));
-            accommodation.setRegion(regions.get(i % 5));
+            accommodation.setRegion(regions.get(i % 8));
             accommodation.setPrice(Long.valueOf(i * 10000));
             accommodation.setIntroduce("hihi~");
             accommodationRepository.save(accommodation);
@@ -45,14 +46,14 @@ public class AccommodationService {
 
     public List<Accommodation> createInit(){
         List<AccommodationType> accommodationTypes = new ArrayList<AccommodationType>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
-        List<String> regions = new ArrayList<String>(List.of("경기","서울","부산","제주","인천"));
+        List<Region> regions = new ArrayList<Region>(List.of(Region.SEOUL, Region.BUSAN, Region.JEJU, Region.GANGWON, Region.INCHEON, Region.GYEONGSANG, Region.JEOLLA, Region.CHUNGCHEONG));
         String baseImgUrl = "https://d3dp03fmze904.cloudfront.net/accommodations/";
 
         // 5(type) x 5(region) x 4(images) = 100
         for(int i=0; i<5; i++){
             AccommodationType nowAccomodationType = accommodationTypes.get(i);
             for(int j=0; j<5; j++){
-                String nowRegion = regions.get(j);
+                Region nowRegion = regions.get(j);
                 for(int k=0; k<4; k++){
                     Accommodation accommodation = new Accommodation();
                     accommodation.setAccommodationName(String.valueOf(i+j+k+1)+"번째 숙소");

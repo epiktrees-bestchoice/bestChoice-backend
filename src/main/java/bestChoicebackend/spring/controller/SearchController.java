@@ -2,6 +2,7 @@ package bestChoicebackend.spring.controller;
 
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationType;
+import bestChoicebackend.spring.domain.Region;
 import bestChoicebackend.spring.service.AccommodationService;
 import bestChoicebackend.spring.service.SearchService;
 import lombok.Getter;
@@ -36,20 +37,33 @@ public class SearchController {
     }
 
     /**
-     * 숙소 검색
-     * 여러가지 조건에 따라 숙소 리스트 Page객체로 10개씩 반환
+     * 모텔 검색
+     * 여러가지 조건에 따라 모텔 리스트 Page객체로 10개씩 반환
      */
-    @GetMapping("/api/v1/search/key/{type}/{region}")
-    public Page<Accommodation> findByCondition(@PathVariable(name="type", required = true) String type,
-                                               @PathVariable(name="region", required = false) String region,
-                                               @RequestParam(required = false) String sort,
-                                               @RequestParam(required = false) String sel_date, @RequestParam(required = false) String sel_date2,
-                                               @RequestParam(required = false) Long min_price, @RequestParam(required = false) Long max_price,
-                                               @RequestParam(required = false) Long reserve,
-                                               @RequestParam(required = false) String keyword,
-                                               @PageableDefault(size = 10) Pageable pageable
-                                               ){
-        Page<Accommodation> accommodations = searchService.findByCondition(AccommodationType.from(type), region, sort, LocalDate.parse(sel_date), LocalDate.parse(sel_date2), min_price, max_price, reserve, keyword, pageable);
+    @GetMapping("/api/v1/search/key/MOTEL/{region}")
+    public Page<Accommodation> findMotelByCondition(@PathVariable(name = "region") String region,
+                                                    @RequestParam String sortVal,
+                                                    @RequestParam(required = false) String sel_date, @RequestParam(required = false) String sel_date2,
+                                                    @RequestParam Long min_price, @RequestParam Long max_price,
+                                                    @RequestParam Long reserve,
+                                                    @RequestParam String keyword,
+                                                    @PageableDefault(size = 10) Pageable pageable
+    ) {
+        Page<Accommodation> accommodations = searchService.findMotelByCondition(Region.from(region), sortVal, LocalDate.parse(sel_date), LocalDate.parse(sel_date2), min_price, max_price, reserve, keyword, pageable);
+        return accommodations;
+    }
+
+    @GetMapping("/api/v1/search/key/HOTEL/{region}")
+    public Page<Accommodation> findHotelByCondition(
+            @PathVariable(name = "region") String region,
+            @RequestParam String sortVal,
+            @RequestParam(required = false) String sel_date, @RequestParam(required = false) String sel_date2,
+            @RequestParam Long min_price, @RequestParam Long max_price,
+            @RequestParam Long reserve,
+            @RequestParam String keyword,
+            @PageableDefault(size = 10) Pageable pageable
+    ){
+        Page<Accommodation> accommodations = searchService.findHotelByCondition(Region.from(region), sortVal, LocalDate.parse(sel_date), LocalDate.parse(sel_date2), min_price, max_price, reserve, keyword, pageable);
         return accommodations;
     }
 }

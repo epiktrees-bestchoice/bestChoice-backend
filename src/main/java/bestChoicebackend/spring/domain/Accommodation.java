@@ -23,7 +23,7 @@ public class Accommodation {
     private String imgUrl;
 
     @Column
-    private String region;
+    private Region region;
 
     @Column
     private String introduce; // 사장님 한마다
@@ -49,7 +49,7 @@ public class Accommodation {
         return imgUrl;
     }
 
-    public String getRegion() {
+    public Region getRegion() {
         return region;
     }
 
@@ -77,7 +77,7 @@ public class Accommodation {
         this.imgUrl = imgUrl;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(Region region) {
         this.region = region;
     }
 
