@@ -14,12 +14,12 @@ public class Mtype {
     private Long mtypeId;
 
     @Column(nullable = true)
-    private String mtypeName;
+    private String mtypeName; // 이색테마, 스파시설...
 
     // like pension, hotel etc...
     @Column
     private Long categoryId;
 
     @Column
-    private String categoryName;
+    private String categoryName; //HOTEL
 }

@@ -15,7 +15,7 @@ public class Keyword {
     private Long keywordId;
 
     @Column
-    private String keywordName;
+    private String keywordName; // 거울룸, 복층룸, 파티룸
 
     // Title that fits the category
     @Column(nullable = true)
