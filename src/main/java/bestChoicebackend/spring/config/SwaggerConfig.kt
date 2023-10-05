@@ -7,6 +7,7 @@ import io.swagger.v3.core.jackson.TypeNameResolver
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.security.SecurityScheme
+import io.swagger.v3.oas.models.servers.Server
 import jakarta.annotation.PostConstruct
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -30,11 +31,13 @@ class SwaggerConfig(private val objectMapper: ObjectMapper) {
 
     @Bean
     fun customOpenAPI(): OpenAPI? {
-        return OpenAPI().components(
-            Components().addSecuritySchemes(
-                "bearer-key",
-                SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+        return OpenAPI().addServersItem(Server().url("/"))
+            .components(
+                Components().addSecuritySchemes(
+                    "bearer-key",
+                    SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+                )
             )
-        )
     }
+
 }

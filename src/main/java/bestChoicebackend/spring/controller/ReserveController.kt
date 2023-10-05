@@ -11,26 +11,27 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
 
 @RestController
 @RequestMapping("/api/v1/reserve")
 class ReserveController(private val reserveService: ReserveService) {
 
     @PostMapping("/user/accommodation")
-    fun addReservation(@RequestParam reserveDto: ReserveDto) {
+    fun addReservation(@RequestBody reserveDto: ReserveDto) {
         reserveService.addReservation(reserveDto)
     }
 
     @GetMapping("/user/accommodations")
-    fun getUserReservation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<List<ReserveDto>> {
-        val userReservations = reserveService.getUserReservation(userId = reserveDto.userId)
+    fun getUserReservation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<Optional<ReserveDto>> {
+        val userReservations = reserveService.getUserReservation(reserveDto)
 
         return ResponseEntity.ok(userReservations)
     }
 
     @GetMapping("/product/accommodations")
-    fun getReservationsByAccommodation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<List<ReserveDto>> {
-        val reservations = reserveService.getReservationsByAccommodation(accommodationId = reserveDto.accommodationId)
+    fun getReservationsByAccommodation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<Optional<ReserveDto>> {
+        val reservations = reserveService.getReservationsByAccommodation(reserveDto)
 
         return ResponseEntity.ok(reservations)
     }
