@@ -38,8 +38,8 @@ public class AccommodationController {
 //        return accommodationService.findAll();
 //    }
 
-    @GetMapping("api/product/accommodation/dumy/{accommodationType}")
-    public List<Accommodation> findByAccommodationType(@PathVariable("accommdationType") String accommodationType){
+    @GetMapping("/api/product/accommodation/dumy/{accommodationType}")
+    public List<Accommodation> findByAccommodationType(@PathVariable("accommodationType") String accommodationType){
         return accommodationService.findByAccommodationType(accommodationType);
     }
 
