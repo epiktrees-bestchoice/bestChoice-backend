@@ -50,5 +50,13 @@ public class KeywordService {
     }
 
     // keyword Adding init
+    public void mtypeAdd(Mtype mtype){
+        mtypeRepository.save(mtype);
+    }
+
+    public void keywordAdd(Keyword keyword){
+        keywordRepository.save(keyword);
+    }
+
 
 }

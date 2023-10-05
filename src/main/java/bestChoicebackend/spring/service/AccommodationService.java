@@ -2,7 +2,11 @@ package bestChoicebackend.spring.service;
 
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationType;
+import bestChoicebackend.spring.domain.Keyword;
+import bestChoicebackend.spring.domain.Mtype;
 import bestChoicebackend.spring.repository.AccommodationRepository;
+import bestChoicebackend.spring.repository.KeywordRepository;
+import bestChoicebackend.spring.repository.MtypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,7 +71,6 @@ public class AccommodationService {
         }
         return accommodationRepository.findAll();
     }
-
     public void deleteAll() {
         accommodationRepository.deleteAll();
     }
