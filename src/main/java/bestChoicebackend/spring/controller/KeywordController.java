@@ -22,13 +22,15 @@ public class KeywordController {
     }
 
     @PostMapping("mtype")
-    public void MtypeAdd(Mtype mtype){
+    public Mtype MtypeAdd(Mtype mtype){
         keywordService.mtypeAdd(mtype);
+        return mtype;
     }
 
     @PostMapping("keyword")
-    public void KeywordAdd(Keyword keyword){
+    public Keyword KeywordAdd(Keyword keyword){
         keywordService.keywordAdd(keyword);
+        return keyword;
     }
 
 }
