@@ -2,7 +2,6 @@ package bestChoicebackend.spring.service;
 
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationKeyword;
-import bestChoicebackend.spring.domain.AccommodationType;
 import bestChoicebackend.spring.dto.KeywordDto;
 import bestChoicebackend.spring.repository.AccommodationKeywordRepository;
 import bestChoicebackend.spring.repository.AccommodationRepository;
@@ -10,12 +9,7 @@ import bestChoicebackend.spring.repository.KeywordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import static org.antlr.v4.runtime.tree.xpath.XPath.findAll;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -66,4 +60,20 @@ public class AccommodationKeywordService {
         }
         return count;
     }
+
+    public List<KeywordDto.KeywordType> findByAccommodationId(Long accommodationId){
+        Accommodation accommodation =  accommodationRepository.findByAccommodationId(accommodationId)
+                .orElseThrow(() -> new RuntimeException("Accommodation not found"));
+        // accommodation이 존재하지 않을경우 예외 발생시키기
+        List<AccommodationKeyword> accommodationKeywords = accommodationKeywordRepository.findByAccommodationId(accommodation);
+        List<KeywordDto.KeywordType> keywordTypeList = new ArrayList<>();
+        for(AccommodationKeyword accommodationKeyword : accommodationKeywords){
+            KeywordDto.KeywordType keywordType = new KeywordDto.KeywordType(
+                    accommodationKeyword.getKeywordId().getKeywordId(),
+                    accommodationKeyword.getKeywordId().getKeywordName());
+            keywordTypeList.add(keywordType);
+        }
+        return keywordTypeList;
+    }
+
 }
