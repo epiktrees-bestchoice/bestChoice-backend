@@ -52,7 +52,7 @@ public class AccommodationService {
     }
 
     public List<Accommodation> createInit(){
-        List<AccommodationType> accommodationTypes = new ArrayList<AccommodationType>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
+        List<AccommodationType> accommodationTypes = new ArrayList<>(List.of(AccommodationType.HOTEL, AccommodationType.MOTEL, AccommodationType.PENSION, AccommodationType.GUESTHOUSE, AccommodationType.CAMPING));
         List<String> regions = new ArrayList<String>(List.of("경기","서울","부산","제주","인천"));
         String baseImgUrl = "https://d3dp03fmze904.cloudfront.net/accommodations/";
 
@@ -66,8 +66,8 @@ public class AccommodationService {
                     accommodation.setAccommodationName(String.valueOf(i+j+k+1)+"번째 숙소");
                     accommodation.setType(nowAccomodationType);
                     accommodation.setRegion(nowRegion);
-                    accommodation.setPrice(Long.valueOf((k+1) * 10000));
-                    accommodation.setIntroduce("hihi~ intro of accommodation "+String.valueOf(i+j+k+1)+"번째 숙소");
+                    accommodation.setPrice((long) ((k + 1) * 10000));
+                    accommodation.setIntroduce("hihi~ intro of accommodation "+nowAccomodationType+"의 "+nowRegion+"의 숙소");
                     accommodation.setImgUrl(baseImgUrl + String.valueOf(nowAccomodationType)+ String.valueOf(k+1) +".jpg");
                     accommodationRepository.save(accommodation);
                 }

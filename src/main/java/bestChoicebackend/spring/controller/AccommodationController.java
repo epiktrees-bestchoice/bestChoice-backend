@@ -1,6 +1,8 @@
 package bestChoicebackend.spring.controller;
 
 import bestChoicebackend.spring.domain.Accommodation;
+import bestChoicebackend.spring.domain.AccommodationKeyword;
+import bestChoicebackend.spring.service.AccommodationKeywordService;
 import bestChoicebackend.spring.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import java.util.List;
 @Slf4j
 public class AccommodationController {
     private final AccommodationService accommodationService;
+    private final AccommodationKeywordService accommodationKeywordService;
     /**
      * 숙소 상세
      * 숙소 ID로 찾아서 숙소 객체 반환
@@ -50,4 +53,10 @@ public class AccommodationController {
     public void deleteAll(){
         accommodationService.deleteAll();
     }
+
+    @PostMapping("/api/product/accommodationkeyword/init")
+    public Long createInitKeyword(){
+        return accommodationKeywordService.createInitKeyword();
+    }
+
 }
