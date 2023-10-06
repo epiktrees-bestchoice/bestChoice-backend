@@ -1,35 +1,44 @@
 package bestChoicebackend.spring.service
 
-import bestChoicebackend.spring.dto.UserLikeDTO
+import bestChoicebackend.spring.domain.UserLike
+import bestChoicebackend.spring.dto.UserLikeDto
+import bestChoicebackend.spring.repository.AccommodationRepository
 import bestChoicebackend.spring.repository.UserLikeRepository
+import bestChoicebackend.spring.repository.UserRepository
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class UserLikeService(
-    private val userLikeRepository: UserLikeRepository
+    private val userLikeRepository: UserLikeRepository,
+    private val userRepository: UserRepository,
+    private val accommodationRepository: AccommodationRepository
 ) {
 
-    fun addUserLike(userLikeDTO: UserLikeDTO) {
-        val userLike = userLikeRepository.findByIdOrNull(id = userLikeDTO.userLikeId)
-            ?: throw EntityNotFoundException("Not found")
+    fun addUserLike(userLikeDto: UserLikeDto) {
+        val user = userRepository.findById(userLikeDto.userId)
+            .orElseThrow { EntityNotFoundException("Not found") }
+        val accommodation = accommodationRepository.findById(userLikeDto.accommodationId)
+            .orElseThrow { EntityNotFoundException("Not found") }
+
+        val userLike = UserLike().apply {
+            this.userId = user
+            this.accommodationId = accommodation
+        }
 
         userLikeRepository.save(userLike)
     }
 
-    fun getUserLikesByUserId(userLikeDTO: UserLikeDTO): List<UserLikeDTO> {
-        val userLikes = userLikeRepository.findAllByUserId_UserId(userLikeDTO.userId)
+    fun getUserLikesByUserId(userLikeDto: UserLikeDto): List<UserLikeDto> {
+        val user = userRepository.findById(userLikeDto.userId)
+            .orElseThrow { EntityNotFoundException("User not found") }
 
-        return userLikes.map {
-            UserLikeDTO(
-                userLikeId = userLikeDTO.userLikeId,
-                userId = userLikeDTO.userId,
-                accommodationId = userLikeDTO.accommodationId
-            )
+        return userLikeRepository.findByUserId(user).map {
+            UserLikeDto(it.userLikeId, it.userId.userId, it.accommodationId.accommodationId)
         }
-
     }
+
 
     fun deleteUserLike(userLikeId: Long) {
         userLikeRepository.deleteById(userLikeId)
