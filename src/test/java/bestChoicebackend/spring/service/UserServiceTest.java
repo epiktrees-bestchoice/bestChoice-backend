@@ -43,7 +43,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void 중복_회원_예외() {
+    public void 중복_회원_예외() { //     하나의 test case
         // given
         User user1 = new User();
         user1.setName("spring");

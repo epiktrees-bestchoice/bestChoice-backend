@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface KeywordRepository extends JpaRepository<Keyword, Long> {
 
+    Keyword findByKeywordId(Long keywordId);
     List<Keyword> findByMtypeId(Long mtypeId);
     List<Keyword> findByMtypeName(String mtypeName);
 }
