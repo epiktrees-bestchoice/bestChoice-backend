@@ -22,8 +22,7 @@ class UserLikeController(private val userLikeService: UserLikeService) {
 
     @GetMapping("/{userId}")
     fun getUserLikesByUserId(@PathVariable userId: Long) : ResponseEntity<List<UserLikeDto>> {
-        val userLikesDto = UserLikeDto(null, userId, 0)  // 0은 임의의 값
-        val userLikes = userLikeService.getUserLikesByUserId(userLikesDto)
+        val userLikes = userLikeService.getUserLikesByUserId(userId)
         return ResponseEntity.ok(userLikes)
     }
 

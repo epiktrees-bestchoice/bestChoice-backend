@@ -30,8 +30,8 @@ class UserLikeService(
         userLikeRepository.save(userLike)
     }
 
-    fun getUserLikesByUserId(userLikeDto: UserLikeDto): List<UserLikeDto> {
-        val user = userRepository.findById(userLikeDto.userId)
+    fun getUserLikesByUserId(userId: Long): List<UserLikeDto> {
+        val user = userRepository.findById(userId)
             .orElseThrow { EntityNotFoundException("User not found") }
 
         return userLikeRepository.findByUserId(user).map {
