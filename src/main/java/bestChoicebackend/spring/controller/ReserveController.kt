@@ -18,20 +18,20 @@ import java.util.*
 class ReserveController(private val reserveService: ReserveService) {
 
     @PostMapping("/user/accommodation")
-    fun addReservation(@RequestBody reserveDto: ReserveDto) {
+    fun addReservation(@RequestParam reserveDto: ReserveDto) {
         reserveService.addReservation(reserveDto)
     }
 
     @GetMapping("/user/accommodations")
-    fun getUserReservation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<Optional<ReserveDto>> {
-        val userReservations = reserveService.getUserReservation(reserveDto)
+    fun getUserReservation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<List<ReserveDto>> {
+        val userReservations = reserveService.getUserReservation(userId = reserveDto.userId)
 
         return ResponseEntity.ok(userReservations)
     }
 
     @GetMapping("/product/accommodations")
-    fun getReservationsByAccommodation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<Optional<ReserveDto>> {
-        val reservations = reserveService.getReservationsByAccommodation(reserveDto)
+    fun getReservationsByAccommodation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<List<ReserveDto>> {
+        val reservations = reserveService.getReservationsByAccommodation(accommodationId = reserveDto.accommodationId)
 
         return ResponseEntity.ok(reservations)
     }
