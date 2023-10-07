@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController
 class UserLikeController(private val userLikeService: UserLikeService) {
 
     @PostMapping
-    fun addUserLike(@RequestBody userLikeDTO: UserLikeDto) {
-        userLikeService.addUserLike(userLikeDTO)
+    fun addUserLike(@RequestBody userLikeDTO: UserLikeDto) : UserLikeDto {
+        return userLikeService.addUserLike(userLikeDTO)
     }
 
     @GetMapping("/{userId}")

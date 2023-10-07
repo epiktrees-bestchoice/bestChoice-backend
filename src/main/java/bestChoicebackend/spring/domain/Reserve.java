@@ -10,11 +10,11 @@ public class Reserve {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reserveId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "userId", nullable = false, columnDefinition = "Long")
     private User userId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "accommodationId", nullable = false, columnDefinition = "Long")
     private Accommodation accommodationId;
 

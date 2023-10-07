@@ -1,7 +1,10 @@
 package bestChoicebackend.spring.controller
 
+import bestChoicebackend.spring.config.auth.dto.SessionUser
 import bestChoicebackend.spring.dto.ReserveDto
 import bestChoicebackend.spring.service.ReserveService
+import jakarta.servlet.http.HttpSession
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,22 +21,45 @@ import java.util.*
 class ReserveController(private val reserveService: ReserveService) {
 
     @PostMapping("/user/accommodation")
-    fun addReservation(@RequestParam reserveDto: ReserveDto) {
-        reserveService.addReservation(reserveDto)
+    fun addReservation(@RequestBody reserveDto: ReserveDto, session: HttpSession) : ResponseEntity<ReserveDto> {
+        val sessionUser = session.getAttribute("user") as (SessionUser)
+        return if (reserveDto.userId == sessionUser.getUserId()) {
+            try{
+                val userReserveDto = reserveService.addReservation(reserveDto)
+                ResponseEntity.ok(userReserveDto)
+            }
+            catch (e : Exception){
+                ResponseEntity.status(HttpStatus.CONFLICT).build()
+            }
+        }
+        else{
+            // 401 Unauthorized 에러 응답
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
     }
 
     @GetMapping("/user/accommodations")
-    fun getUserReservation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<List<ReserveDto>> {
-        val userReservations = reserveService.getUserReservation(userId = reserveDto.userId)
+    fun getUserReservation(@RequestParam userId: Long, session: HttpSession) : ResponseEntity<List<ReserveDto>> {
+        val sessionUser = session.getAttribute("user") as (SessionUser)
 
-        return ResponseEntity.ok(userReservations)
+        return if (userId == sessionUser.getUserId()) {
+            val userReservations = reserveService.getUserReservation(userId = userId)
+            ResponseEntity.ok(userReservations)
+        } else {
+            // 401 Unauthorized 에러 응답
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
     }
 
     @GetMapping("/product/accommodations")
-    fun getReservationsByAccommodation(@RequestParam reserveDto: ReserveDto) : ResponseEntity<List<ReserveDto>> {
-        val reservations = reserveService.getReservationsByAccommodation(accommodationId = reserveDto.accommodationId)
-
-        return ResponseEntity.ok(reservations)
+    fun getReservationsByAccommodation(@RequestParam accommodationId : Long) : ResponseEntity<List<ReserveDto>> {
+        return try{
+            val reservations = reserveService.getReservationsByAccommodation(accommodationId = accommodationId)
+            ResponseEntity.ok(reservations)
+        }
+        catch (e : Exception){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+        }
     }
 
     @DeleteMapping("/{reserveId}")
