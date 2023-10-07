@@ -1,6 +1,6 @@
 package bestChoicebackend.spring.controller
 
-import bestChoicebackend.spring.dto.UserLikeDTO
+import bestChoicebackend.spring.dto.UserLikeDto
 import bestChoicebackend.spring.service.UserLikeService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -16,15 +16,16 @@ import org.springframework.web.bind.annotation.RestController
 class UserLikeController(private val userLikeService: UserLikeService) {
 
     @PostMapping
-    fun addUserLike(@RequestBody userLikeDTO: UserLikeDTO) {
+    fun addUserLike(@RequestBody userLikeDTO: UserLikeDto) {
         userLikeService.addUserLike(userLikeDTO)
     }
 
     @GetMapping("/{userId}")
-    fun getUserLikesByUserId(@PathVariable userId: UserLikeDTO) : ResponseEntity<List<UserLikeDTO>> {
+    fun getUserLikesByUserId(@PathVariable userId: Long) : ResponseEntity<List<UserLikeDto>> {
         val userLikes = userLikeService.getUserLikesByUserId(userId)
         return ResponseEntity.ok(userLikes)
     }
+
 
     @DeleteMapping("/{userLikeId}")
     fun deleteUserLike(@PathVariable userLikeId: Long) : ResponseEntity<Void> {
