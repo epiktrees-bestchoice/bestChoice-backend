@@ -16,7 +16,7 @@ class UserLikeService(
     private val accommodationRepository: AccommodationRepository
 ) {
 
-    fun addUserLike(userLikeDto: UserLikeDto) {
+    fun addUserLike(userLikeDto: UserLikeDto) :UserLikeDto {
         val user = userRepository.findById(userLikeDto.userId)
             .orElseThrow { EntityNotFoundException("Not found") }
         val accommodation = accommodationRepository.findById(userLikeDto.accommodationId)
@@ -28,6 +28,7 @@ class UserLikeService(
         }
 
         userLikeRepository.save(userLike)
+        return userLikeDto
     }
 
     fun getUserLikesByUserId(userId: Long): List<UserLikeDto> {
@@ -40,7 +41,8 @@ class UserLikeService(
     }
 
 
-    fun deleteUserLike(userLikeId: Long) {
+    fun deleteUserLike(userLikeId: Long) : Long {
         userLikeRepository.deleteById(userLikeId)
+        return userLikeId
     }
 }

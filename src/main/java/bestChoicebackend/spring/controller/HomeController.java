@@ -45,6 +45,12 @@ public class HomeController {
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
+//    @GetMapping("/login")
+//    public String getIsLogin(){
+//
+//        return "login";
+//    }
+
     @PostMapping("/my/logout")
     public String performLogout() {
         return "redirect:http://epicktrees.net";
