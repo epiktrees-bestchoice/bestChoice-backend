@@ -40,12 +40,6 @@ public class AccommodationController {
 //    public List<Accommodation> findAll(){
 //        return accommodationService.findAll();
 //    }
-
-    @PostMapping("/api/product/accommodation/item")
-    public Accommodation addAccommodation(@RequestBody Accommodation accommodation){
-        return accommodationService.addAccommodation(accommodation);
-    }
-
     @GetMapping("/api/product/accommodation/dumy/{accommodationType}")
     public List<Accommodation> findByAccommodationType(@PathVariable("accommodationType") String accommodationType){
         return accommodationService.findByAccommodationType(accommodationType);
