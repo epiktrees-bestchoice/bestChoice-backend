@@ -27,8 +27,8 @@ class UserLikeService(
             this.accommodationId = accommodation
         }
 
-        userLikeRepository.save(userLike)
-        return userLikeDto
+        val savedLike = userLikeRepository.save(userLike)
+        return UserLikeDto(savedLike.userLikeId, savedLike.userId.userId, savedLike.accommodationId.accommodationId)
     }
 
     fun getUserLikesByUserId(userId: Long): List<UserLikeDto> {
