@@ -20,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2AccessTokenResponseClient customOAuth2AccessTokenResponseClient;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -28,7 +29,7 @@ public class SecurityConfig{
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/login","/try/**","/hello").permitAll()
+                        .requestMatchers("/login","/try/**","/hello/**","/swagger-ui.html/**").permitAll()
 //                        .requestMatchers("/","css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
 //                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/product/**").permitAll()
@@ -47,6 +48,7 @@ public class SecurityConfig{
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
                         .defaultSuccessUrl("https://api.epicktrees.net/hello-world"));
+//                        .defaultSuccessUrl("http://localhost:8080"));
         return http.build();
     }
 

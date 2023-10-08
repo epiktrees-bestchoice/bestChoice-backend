@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -47,6 +48,16 @@ public class HomeController {
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
+//    @GetMapping("/login")
+//    public String getIsLogin(){
+//
+//        return "login";
+//    }
+
+    @PostMapping("/my/logout")
+    public String performLogout() {
+        return "redirect:http://epicktrees.net";
+    }
     @GetMapping("hello-world")
     public String  getIsLogin(HttpSession httpSession, HttpServletRequest request, HttpServletResponse response){
         SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
@@ -56,7 +67,6 @@ public class HomeController {
         else{
             System.out.println("로그인 못했습니다.");
         }
-        System.out.println("Redirect login page");
         Cookie[] myCookies = request.getCookies();
 
         if (myCookies != null) {
@@ -74,7 +84,7 @@ public class HomeController {
                 }
             }
         }
-        return "redirect:https://epicktrees.net";
+        return "redirect:http://epicktrees.net";
     }
 
 }

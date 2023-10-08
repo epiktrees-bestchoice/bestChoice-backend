@@ -1,15 +1,14 @@
 package bestChoicebackend.spring.controller;
 
 import bestChoicebackend.spring.domain.Accommodation;
+import bestChoicebackend.spring.domain.AccommodationKeyword;
+import bestChoicebackend.spring.service.AccommodationKeywordService;
 import bestChoicebackend.spring.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +17,7 @@ import java.util.List;
 @Slf4j
 public class AccommodationController {
     private final AccommodationService accommodationService;
+
     /**
      * 숙소 상세
      * 숙소 ID로 찾아서 숙소 객체 반환
@@ -36,8 +36,23 @@ public class AccommodationController {
     /**
      * 전체 숙소 List 반환
      */
-    @GetMapping("/api/product/accommodation/all")
-    public List<Accommodation> findAll(){
-        return accommodationService.findAll();
+//    @GetMapping("/api/product/accommodation/all")
+//    public List<Accommodation> findAll(){
+//        return accommodationService.findAll();
+//    }
+    @GetMapping("/api/product/accommodation/dumy/{accommodationType}")
+    public List<Accommodation> findByAccommodationType(@PathVariable("accommodationType") String accommodationType){
+        return accommodationService.findByAccommodationType(accommodationType);
     }
+
+    @GetMapping("/api/product/accommodation/createinit")
+    public List<Accommodation> createInit() {return accommodationService.createInit();}
+
+    @PostMapping("/api/product/accommodation/trash")
+    public void deleteAll(){
+        accommodationService.deleteAll();
+    }
+
+
+
 }
