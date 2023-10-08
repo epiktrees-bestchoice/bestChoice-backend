@@ -20,6 +20,10 @@ import java.util.Optional;
 public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
 
+    public Accommodation addAccommodation(Accommodation accommodation){
+        return accommodationRepository.save(accommodation);
+    }
+
     /**
      * 숙소 상세
      * 숙소 ID로 찾아서 숙소 객체 반환
