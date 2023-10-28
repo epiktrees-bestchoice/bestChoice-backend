@@ -1,0 +1,48 @@
+package bestChoicebackend.spring.service;
+
+import bestChoicebackend.spring.domain.Accommodation;
+import bestChoicebackend.spring.domain.AccommodationType;
+import bestChoicebackend.spring.dto.SearchReqDto;
+import bestChoicebackend.spring.exception.BaseException;
+import bestChoicebackend.spring.exception.BaseResponseStatus;
+import bestChoicebackend.spring.repository.ProductDao;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.regex.Pattern;
+
+@Service
+@RequiredArgsConstructor
+public class ProductService {
+
+    private final ProductDao productDao;
+
+    private static final String DATE_FORMAT_REGEX = "\\d{4}-\\d{2}-\\d{2}";
+
+    public static boolean isDateFormatValid(String date) {
+        // Use a regular expression to check if the date matches the format "YYYY-MM-DD"
+        return Pattern.matches(DATE_FORMAT_REGEX, date);
+    }
+
+    public Page<Accommodation> GetProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
+
+        AccommodationType accommoType = AccommodationType.from(type);
+        if(accommoType ==null){
+            throw new BaseException(BaseResponseStatus.TYPE_NOT_FOUND);
+        }
+
+        if(isDateFormatValid(searchReqDto.getSel_date()) && isDateFormatValid(searchReqDto.getSel_date2())){
+            List<Accommodation> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
+            int start = (int) pageable.getOffset();
+            int end = Math.min((start + pageable.getPageSize()), accommodations.size());
+            return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
+        }
+        else {
+            throw new BaseException(BaseResponseStatus.DATE_FORMAT_EXCEPTION);
+        }
+    }
+}
