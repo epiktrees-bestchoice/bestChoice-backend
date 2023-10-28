@@ -5,16 +5,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 public enum AccommodationType {
-    HOTEL("HOTEL"), //1
-    MOTEL("MOTEL"), //2
-    PENSION("PENSION"), //3
-    GUESTHOUSE("GUESTHOUSE"), //4
-    CAMPING("CAMPING"); //5
+    HOTEL(1, "HOTEL"),
+    MOTEL(2, "MOTEL"),
+    PENSION(3, "PENSION"),
+    GUESTHOUSE(4, "GUESTHOUSE"),
+    CAMPING(5, "CAMPING");
 
-    @Getter
+    private final int value;
     private final String type;
 
-    AccommodationType(String type) {
+    AccommodationType(int value, String type) {
+        this.value = value;
         this.type = type;
     }
 
@@ -29,8 +30,21 @@ public enum AccommodationType {
         return null;
     }
 
+    @JsonCreator
+    public static AccommodationType from(int value) {
+        for (AccommodationType t : AccommodationType.values()) {
+            if (t.getValue() == value) {
+                return t;
+            }
+        }
+        return null; // 해당하는 Enum 값이 없을 때 처리
+    }
+
     @JsonValue
     public String getType() {
         return type;
+    }
+    public int getValue() {
+        return value;
     }
 }

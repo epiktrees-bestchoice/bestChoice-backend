@@ -1,10 +1,11 @@
 package bestChoicebackend.spring.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 public class Accommodation {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,8 @@ public class Accommodation {
     public String getAccommodationName() {
         return accommodationName;
     }
+
+    public String getAccommodationImgUrl(){return imgUrl;}
 
     public AccommodationType getType() {
         return type;
