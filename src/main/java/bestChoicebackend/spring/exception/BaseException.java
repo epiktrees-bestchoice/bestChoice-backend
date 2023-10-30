@@ -1,6 +1,6 @@
 package bestChoicebackend.spring.exception;
 
-public class BaseException  extends RuntimeException{
+public class BaseException  extends RuntimeException {
 
     private BaseResponseStatus status;
 

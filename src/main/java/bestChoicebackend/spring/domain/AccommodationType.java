@@ -1,5 +1,7 @@
 package bestChoicebackend.spring.domain;
 
+import bestChoicebackend.spring.exception.BaseException;
+import bestChoicebackend.spring.exception.BaseResponseStatus;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
@@ -21,13 +23,13 @@ public enum AccommodationType {
 
     // 문잘를 enum type으로 변환
     @JsonCreator
-    public static AccommodationType from(String type) {
+    public static AccommodationType from(String type) throws BaseException {
         for (AccommodationType t : AccommodationType.values()) {
             if (t.getType().equals(type)) {
                 return t;
             }
         }
-        return null;
+        throw new BaseException(BaseResponseStatus.TYPE_NOT_FOUND);
     }
 
     @JsonCreator

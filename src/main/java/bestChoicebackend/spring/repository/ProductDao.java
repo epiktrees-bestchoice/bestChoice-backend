@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor // jdbcTemplate 의존성 추가
-@Slf4j
 public class ProductDao {
     private final JdbcTemplate jdbcTemplate;
     private final RowMappers rowMappers;
@@ -31,12 +30,11 @@ public class ProductDao {
 
     public List<Accommodation> checkProduct(int type, SearchReqDto searchReqDto) {
         String BaseQuery ="SELECT a.* FROM accommodation a " +
-                "LEFT JOIN accommodation_keyword ak ON a.accommodation_id = ak.accommodation_id ";
-
-
+                "LEFT JOIN accommodation_keyword ak ON a.accommodation_id = ak.accommodation_id "+
+                "WHERE a.type=?";
         if(!searchReqDto.getKeywords().isEmpty()){
             BaseQuery +=
-                    "WHERE keyword_id IN (" + createParameterPlaceholders(searchReqDto.getKeywords()) + ") ";
+                    "AND keyword_id IN (" + createParameterPlaceholders(searchReqDto.getKeywords()) + ") ";
         }
         BaseQuery += "GROUP BY a.accommodation_id " +
                 "HAVING COUNT(DISTINCT keyword_id) >= " + searchReqDto.getKeywords().size() + " AND " +
@@ -47,6 +45,7 @@ public class ProductDao {
                 "        (DATE_FORMAT(end_date, '%Y-%m-%d') <= ?))";
         try{
             Object[] ProductSearchObj = new Object[]{
+                    type,
                     searchReqDto.getMin_price(),
                     searchReqDto.getMax_price(),
                     searchReqDto.getSel_date2(),
@@ -57,6 +56,5 @@ public class ProductDao {
         catch (RuntimeException e){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
-
     }
 }

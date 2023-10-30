@@ -12,6 +12,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -29,20 +32,28 @@ public class ProductService {
     }
 
     public Page<Accommodation> GetProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
-
+        // enum null 처리
         AccommodationType accommoType = AccommodationType.from(type);
-        if(accommoType ==null){
-            throw new BaseException(BaseResponseStatus.TYPE_NOT_FOUND);
-        }
+        // Date 포멧팅을 어노테이션으로 domain에 적용할 수 있다.
+        if(searchReqDto.getSel_date().isBlank()){ // 기준 날짜가 빈 경우
+            Date today = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String result = df.format(today);
+            searchReqDto.setSel_date(result);
 
-        if(isDateFormatValid(searchReqDto.getSel_date()) && isDateFormatValid(searchReqDto.getSel_date2())){
-            List<Accommodation> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
-            int start = (int) pageable.getOffset();
-            int end = Math.min((start + pageable.getPageSize()), accommodations.size());
-            return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(today);
+            cal.add(Calendar.DATE, 1);
+            searchReqDto.setSel_date2(df.format(cal.getTime()));
         }
-        else {
+        // 날짜가 비어있지 않더라도 형태가 맞지 않은 경우
+        else if(!(isDateFormatValid(searchReqDto.getSel_date()) && isDateFormatValid(searchReqDto.getSel_date2()))){
             throw new BaseException(BaseResponseStatus.DATE_FORMAT_EXCEPTION);
         }
+
+        List<Accommodation> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), accommodations.size());
+        return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
     }
 }
