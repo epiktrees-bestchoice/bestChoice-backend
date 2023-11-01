@@ -3,6 +3,8 @@ package bestChoicebackend.spring.elastic.service;
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.elastic.document.AccommodationDocument;
 import bestChoicebackend.spring.elastic.repository.AccommodationDocumentRepository;
+import bestChoicebackend.spring.exception.BaseException;
+import bestChoicebackend.spring.exception.BaseResponseStatus;
 import bestChoicebackend.spring.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,17 +18,24 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class AccommodationDocumentService {
-
     private final AccommodationDocumentRepository accommodationDocumentRepository;
     private final AccommodationRepository accommodationRepository;
-
     public void save(final AccommodationDocument accom){
-        log.info("save id : "+accom.getAccommodationId()+" name : "+accom.getAccommodationName());
+        log.info("save id : "+accom.getId()+" name : "+accom.getAccommodationName());
         accommodationDocumentRepository.save(accom);
     }
 
+    public AccommodationDocument findById(final String id){
+        AccommodationDocument person = accommodationDocumentRepository.findById(id).orElse(null);
+        if(person == null){
+            throw new BaseException(BaseResponseStatus.RESPONSE_ERROR);
+        }
+        log.info("save id : "+person.getId()+" name : "+person.getAccommodationName());
+        return person;
+    }
+
     public int elasticInit(){
-        Long topId = accommodationDocumentRepository.findTopByOrderByAccommodationIdDesc();
+        Long topId = accommodationDocumentRepository.findTopByOrderByIdDesc();
         List<Accommodation> accoms = accommodationRepository.findByAccommodationIdGreaterThan(topId);
         List<AccommodationDocument> accommodationDocumentList = new ArrayList<>();
 
@@ -42,7 +51,7 @@ public class AccommodationDocumentService {
     @NotNull
     private static AccommodationDocument getAccommodationDocument(Accommodation accommodation) {
         AccommodationDocument accommodationDocument = new AccommodationDocument();
-        accommodationDocument.setAccommodationId(String.valueOf(accommodation.getAccommodationId()));
+        accommodationDocument.setId(String.valueOf(accommodation.getAccommodationId()));
         accommodationDocument.setAccommodationName(accommodation.getAccommodationName());
         accommodationDocument.setType(accommodation.getType().getType()); // Enum 값을 가져옵니다.
         accommodationDocument.setRegion(accommodation.getRegion());

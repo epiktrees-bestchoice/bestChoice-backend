@@ -10,7 +10,7 @@ import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfigurat
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "bestChoicebackend.spring.repository")
+@EnableElasticsearchRepositories(basePackages = "bestChoicebackend.spring.elastic")
 @Slf4j
 public class ElasticConfig extends ElasticsearchConfiguration {
 

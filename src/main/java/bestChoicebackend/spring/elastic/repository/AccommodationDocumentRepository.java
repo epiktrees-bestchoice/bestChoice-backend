@@ -1,5 +1,9 @@
 package bestChoicebackend.spring.elastic.repository;
 
+
+
+
+
 import bestChoicebackend.spring.elastic.document.AccommodationDocument;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
@@ -22,7 +26,7 @@ public interface AccommodationDocumentRepository extends ElasticsearchRepository
             "}}")
     List<AccommodationDocument> customFullTextSearch(String query);
 
-    Long findTopByOrderByAccommodationIdDesc();
+    Long findTopByOrderByIdDesc();
 
     List<AccommodationDocument> findByAccommodationName(String name);
 }
