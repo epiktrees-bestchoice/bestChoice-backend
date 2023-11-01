@@ -19,7 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final CustomOAuth2AccessTokenResponseClient customOAuth2AccessTokenResponseClient;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -51,8 +50,4 @@ public class SecurityConfig{
 //                        .defaultSuccessUrl("http://localhost:8080"));
         return http.build();
     }
-
-
-
-
 }

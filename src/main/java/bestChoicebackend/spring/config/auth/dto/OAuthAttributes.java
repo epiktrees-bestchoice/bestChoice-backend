@@ -33,10 +33,10 @@ public class OAuthAttributes {
 
             Map<String, Object> commonAttributes =new HashMap<String,Object>();
             commonAttributes.put(userNameAttributeName, attributes.get(userNameAttributeName));
-            commonAttributes.put("name",(String) kakaoProfile.get("nickname"));
-            commonAttributes.put("nickname", (String) kakaoProfile.get("nickname"));
-            commonAttributes.put("userEmail", (String) kakaoAccount.get("email"));
-            commonAttributes.put("picture", (String) kakaoProfile.get("profile_image_url"));
+            commonAttributes.put("name", kakaoProfile.get("nickname"));
+            commonAttributes.put("nickname", kakaoProfile.get("nickname"));
+            commonAttributes.put("userEmail", kakaoAccount.get("email"));
+            commonAttributes.put("picture", kakaoProfile.get("profile_image_url"));
             commonAttributes.put("social",registrationId);
 
             return OAuthAttributes.builder()

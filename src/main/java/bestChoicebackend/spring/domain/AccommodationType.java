@@ -21,7 +21,7 @@ public enum AccommodationType {
         this.type = type;
     }
 
-    // 문잘를 enum type으로 변환
+    // 문자열을 enum type으로 변환
     @JsonCreator
     public static AccommodationType from(String type) throws BaseException {
         for (AccommodationType t : AccommodationType.values()) {

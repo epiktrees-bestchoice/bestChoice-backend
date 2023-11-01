@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SearchService {
     private final AccommodationRepository accommodationRepository;
-
-
     public Page<Accommodation> findByAccommodationName(String text, Pageable pageable){
         Page<Accommodation> accommodations = accommodationRepository.findByAccommodationNameContaining(text, pageable);
         return accommodations;
     }
+    // 엘라스틱 서치
+    // 모든 텍스트 인덱싱
 }
