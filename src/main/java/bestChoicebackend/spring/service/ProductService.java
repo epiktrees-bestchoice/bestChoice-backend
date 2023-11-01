@@ -35,7 +35,8 @@ public class ProductService {
         // enum null 처리
         AccommodationType accommoType = AccommodationType.from(type);
         // Date 포멧팅을 어노테이션으로 domain에 적용할 수 있다.
-        if(searchReqDto.getSel_date().isBlank()){ // 기준 날짜가 빈 경우
+        if(searchReqDto.getSel_date() == null              // 기준 날짜가 빈 경우
+                || searchReqDto.getSel_date().isBlank()){  // 기준 날짜가 ""인 경우
             Date today = new Date();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String result = df.format(today);
@@ -46,8 +47,8 @@ public class ProductService {
             cal.add(Calendar.DATE, 1);
             searchReqDto.setSel_date2(df.format(cal.getTime()));
         }
-        // 날짜가 비어있지 않더라도 형태가 맞지 않은 경우
-        else if(!(isDateFormatValid(searchReqDto.getSel_date()) && isDateFormatValid(searchReqDto.getSel_date2()))){
+        else if(!(isDateFormatValid(searchReqDto.getSel_date())  // 기준 날짜 형태가 맞지 않은 경우
+                && isDateFormatValid(searchReqDto.getSel_date2()))){
             throw new BaseException(BaseResponseStatus.DATE_FORMAT_EXCEPTION);
         }
 

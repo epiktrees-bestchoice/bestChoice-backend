@@ -34,6 +34,8 @@ dependencies {
 	// DB
 	runtimeOnly("com.mysql:mysql-connector-j")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	// ElasticSearch
+	implementation("org.springframework.data:spring-data-elasticsearch:5.0.3")
 	//swagger 적용할 때, springfox 안 돼여,,,springdoc 써야함
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 	// 스프링 시큐리티 버전

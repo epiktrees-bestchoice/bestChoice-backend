@@ -33,6 +33,7 @@ public class SecurityConfig{
 //                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/product/**").permitAll()
                         .requestMatchers("/oauth2/authorization/**","/oauth2/code/**").permitAll()
+                        .requestMatchers("/api/v2/**").permitAll()
                         .requestMatchers("/api/v1/**").permitAll()
                         .anyRequest().authenticated())
                 .logout((logout) -> logout
