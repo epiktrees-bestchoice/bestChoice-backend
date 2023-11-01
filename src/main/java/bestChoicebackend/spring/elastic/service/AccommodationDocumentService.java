@@ -2,10 +2,7 @@ package bestChoicebackend.spring.elastic.service;
 
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.elastic.document.AccommodationDocument;
-import bestChoicebackend.spring.elastic.document.Person;
 import bestChoicebackend.spring.elastic.repository.AccommodationDocumentRepository;
-import bestChoicebackend.spring.exception.BaseException;
-import bestChoicebackend.spring.exception.BaseResponseStatus;
 import bestChoicebackend.spring.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

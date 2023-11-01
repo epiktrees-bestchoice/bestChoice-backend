@@ -1,6 +1,5 @@
 package bestChoicebackend.spring.controllerv2;
 
-import bestChoicebackend.spring.elastic.document.AccommodationDocument;
 import bestChoicebackend.spring.elastic.service.AccommodationDocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
