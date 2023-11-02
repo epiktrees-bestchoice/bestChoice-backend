@@ -8,6 +8,7 @@ import bestChoicebackend.spring.exception.BaseException;
 import bestChoicebackend.spring.exception.BaseResponseStatus;
 import bestChoicebackend.spring.repository.ProductDao;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ProductService {
 
@@ -32,7 +34,7 @@ public class ProductService {
         return Pattern.matches(DATE_FORMAT_REGEX, date);
     }
 
-    public Page<AccommodationResDto> GetProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
+    public Page<AccommodationResDto> getProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
         // enum null 처리
         AccommodationType accommoType = AccommodationType.from(type);
         // Date 포멧팅을 어노테이션으로 domain에 적용할 수 있다.

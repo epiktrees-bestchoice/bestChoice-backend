@@ -34,7 +34,7 @@ public class SecurityConfig{
 //                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/product/**").permitAll()
                         .requestMatchers("/oauth2/authorization/**","/oauth2/code/**").permitAll()
-                        .requestMatchers("/api/v1/**").permitAll()
+                        .requestMatchers("/api/v1/**","/api/v2/**").permitAll()
                         .anyRequest().authenticated())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/")  )

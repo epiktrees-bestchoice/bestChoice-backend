@@ -4,6 +4,7 @@ import bestChoicebackend.spring.dto.accommodationDto.AccommodationReqDto;
 import bestChoicebackend.spring.dto.SearchReqDto;
 import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,9 @@ public class ProductController {
     private final ProductService productService;
     @GetMapping(value = "/search/{type}")
     public Page<AccommodationResDto> getReq(@PathVariable("type") String type,
-                                            @RequestBody SearchReqDto searchReqDto, // Controller에서 받는 json을 DTO로 변환
+                                            @Valid  @RequestBody SearchReqDto searchReqDto, // Controller에서 받는 json을 DTO로 변환, NotNull 판단,.
                                             @PageableDefault(size=10, direction = Sort.Direction.DESC) Pageable pageable) {
-        return productService.GetProductWithCondition(type, searchReqDto, pageable);
+        log.info("type : "+type+" region : "+searchReqDto.getRegion());
+        return productService.getProductWithCondition(type, searchReqDto, pageable);
     }
 }
