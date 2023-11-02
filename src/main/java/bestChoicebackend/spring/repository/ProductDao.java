@@ -2,6 +2,7 @@ package bestChoicebackend.spring.repository;
 
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.dto.SearchReqDto;
+import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.dto.rowmapper.RowMappers;
 import bestChoicebackend.spring.exception.BaseException;
 import bestChoicebackend.spring.exception.BaseResponseStatus;
@@ -28,7 +29,7 @@ public class ProductDao {
         return placeholders.toString();
     }
 
-    public List<Accommodation> checkProduct(int type, SearchReqDto searchReqDto) {
+    public List<AccommodationResDto> checkProduct(int type, SearchReqDto searchReqDto) {
         String BaseQuery ="SELECT a.* FROM accommodation a " +
                 "LEFT JOIN accommodation_keyword ak ON a.accommodation_id = ak.accommodation_id "+
                 "WHERE a.type=?";
@@ -41,8 +42,8 @@ public class ProductDao {
                 "a.price BETWEEN ? AND ? AND " +
                 "a.accommodation_id NOT IN ( " +
                 "    SELECT accommodation_id FROM reserve " +
-                "    WHERE NOT ((DATE_FORMAT(reserve_date, '%Y-%m-%d') >= ?) AND " +
-                "        (DATE_FORMAT(end_date, '%Y-%m-%d') <= ?))";
+                "    WHERE NOT ((DATE_FORMAT(reserve_date, '%Y-%m-%d') >= (DATE_FORMAT('?', '%Y-%m-%d')) AND " +
+                "        (DATE_FORMAT(end_date, '%Y-%m-%d') <= (DATE_FORMAT('?', '%Y-%m-%d')))";
         try{
             Object[] ProductSearchObj = new Object[]{
                     type,

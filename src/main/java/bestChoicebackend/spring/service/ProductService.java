@@ -3,6 +3,7 @@ package bestChoicebackend.spring.service;
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationType;
 import bestChoicebackend.spring.dto.SearchReqDto;
+import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.exception.BaseException;
 import bestChoicebackend.spring.exception.BaseResponseStatus;
 import bestChoicebackend.spring.repository.ProductDao;
@@ -31,27 +32,27 @@ public class ProductService {
         return Pattern.matches(DATE_FORMAT_REGEX, date);
     }
 
-    public Page<Accommodation> GetProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
+    public Page<AccommodationResDto> GetProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
         // enum null 처리
         AccommodationType accommoType = AccommodationType.from(type);
         // Date 포멧팅을 어노테이션으로 domain에 적용할 수 있다.
-        if(searchReqDto.getSel_date().isBlank()){ // 기준 날짜가 빈 경우
-            Date today = new Date();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            String result = df.format(today);
-            searchReqDto.setSel_date(result);
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(today);
-            cal.add(Calendar.DATE, 1);
-            searchReqDto.setSel_date2(df.format(cal.getTime()));
-        }
+//        if(searchReqDto.getSel_date().isBlank()){ // 기준 날짜가 빈 경우
+//            Date today = new Date();
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//            String result = df.format(today);
+//            searchReqDto.setSel_date(result);
+//
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTime(today);
+//            cal.add(Calendar.DATE, 1);
+//            searchReqDto.setSel_date2(df.format(cal.getTime()));
+//        }
         // 날짜가 비어있지 않더라도 형태가 맞지 않은 경우
-        else if(!(isDateFormatValid(searchReqDto.getSel_date()) && isDateFormatValid(searchReqDto.getSel_date2()))){
-            throw new BaseException(BaseResponseStatus.DATE_FORMAT_EXCEPTION);
-        }
+//        else if(!(isDateFormatValid(searchReqDto.getSel_date()){ //&& isDateFormatValid(searchReqDto.getSel_date2()))){
+//            throw new BaseException(BaseResponseStatus.DATE_FORMAT_EXCEPTION);
+//        }
 
-        List<Accommodation> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
+        List<AccommodationResDto> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), accommodations.size());
         return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
