@@ -3,19 +3,25 @@ package bestChoicebackend.spring.service;
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationType;
 import bestChoicebackend.spring.dto.SearchReqDto;
+import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.exception.BaseException;
 import bestChoicebackend.spring.exception.BaseResponseStatus;
 import bestChoicebackend.spring.repository.ProductDao;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ProductService {
 
@@ -28,21 +34,16 @@ public class ProductService {
         return Pattern.matches(DATE_FORMAT_REGEX, date);
     }
 
-    public Page<Accommodation> GetProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
+    public List<AccommodationResDto> getJDBCProduct(){
+        return productDao.checkJDBCProduct();
+    }
 
+    public Page<AccommodationResDto> getProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
+        // enum null 처리
         AccommodationType accommoType = AccommodationType.from(type);
-        if(accommoType ==null){
-            throw new BaseException(BaseResponseStatus.TYPE_NOT_FOUND);
-        }
-
-        if(isDateFormatValid(searchReqDto.getSel_date()) && isDateFormatValid(searchReqDto.getSel_date2())){
-            List<Accommodation> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
-            int start = (int) pageable.getOffset();
-            int end = Math.min((start + pageable.getPageSize()), accommodations.size());
-            return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
-        }
-        else {
-            throw new BaseException(BaseResponseStatus.DATE_FORMAT_EXCEPTION);
-        }
+        List<AccommodationResDto> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), accommodations.size());
+        return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
     }
 }
