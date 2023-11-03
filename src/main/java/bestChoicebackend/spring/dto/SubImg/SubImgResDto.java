@@ -1,5 +1,7 @@
 package bestChoicebackend.spring.dto.SubImg;
 
+import bestChoicebackend.spring.domain.Accommodation;
+import bestChoicebackend.spring.domain.SubImg;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +13,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PUBLIC)
 public class SubImgResDto {
     Long subImgId;
-    Long accommodationId;
+    Accommodation accommodation;
     String subImgUrl;
+
+    public SubImg toEntity(){
+        return SubImg.builder()
+                .accommodation(accommodation)
+                .subImgUrl(subImgUrl)
+                .build();
+    }
 }

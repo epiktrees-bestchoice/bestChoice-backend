@@ -39,7 +39,7 @@ public enum AccommodationType {
                 return t;
             }
         }
-        return null; // 해당하는 Enum 값이 없을 때 처리
+        throw new BaseException(BaseResponseStatus.TYPE_NOT_FOUND); // 해당하는 Enum 값이 없을 때 처리
     }
 
     @JsonValue
