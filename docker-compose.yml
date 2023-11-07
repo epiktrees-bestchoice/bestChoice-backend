@@ -1,12 +1,13 @@
+version: "3"
 services:
   springboot-app:
     container_name: spring-app
-    image: 636000351401.dkr.ecr.ap-northeast-2.amazonaws.com/docker-spring-mysql:spring
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 80:8080
+      - 8080:8080
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/myseconddb
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
       MYSQL_HOST: mysqldb
       MYSQL_PORT: 3306
       MYSQL_USER: myspringboot
@@ -19,11 +20,11 @@ services:
 
   mysqldb :
     container_name: mysqldb
-    image: 636000351401.dkr.ecr.ap-northeast-2.amazonaws.com/docker-spring-mysql:db
+    image: mysql:8.1.0
     volumes:
       - ./db:/var/lib/mysql
     ports:
-      - 3307:3306
+      - 3306:3306
     environment:
       MYSQL_USER: myspringboot
       MYSQL_PASSWORD: 3219
@@ -31,8 +32,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
     networks:
       - springboot_mysql_net
-version: "3"
+
 networks:
   springboot_mysql_net:
     driver: bridge
-

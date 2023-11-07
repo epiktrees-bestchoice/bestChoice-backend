@@ -1,5 +1,5 @@
 FROM --platform=linux/amd64 gradle:8.2.1-jdk17-alpine
-
+LABEL authors="sol"
 # gradle 복사
 COPY build.gradle.kts .
 COPY settings.gradle.kts .

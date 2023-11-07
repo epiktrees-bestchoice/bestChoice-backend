@@ -1,36 +1,52 @@
 package bestChoicebackend.spring.domain;
 
+import bestChoicebackend.spring.exception.BaseException;
+import bestChoicebackend.spring.exception.BaseResponseStatus;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 public enum AccommodationType {
-    HOTEL("HOTEL"), //1
-    MOTEL("MOTEL"), //2
-    PENSION("PENSION"), //3
-    GUESTHOUSE("GUESTHOUSE"), //4
-    CAMPING("CAMPING"); //5
+    HOTEL(1, "HOTEL"),
+    MOTEL(2, "MOTEL"),
+    PENSION(3, "PENSION"),
+    GUESTHOUSE(4, "GUESTHOUSE"),
+    CAMPING(5, "CAMPING");
 
-    @Getter
+    private final int value;
     private final String type;
 
-    AccommodationType(String type) {
+    AccommodationType(int value, String type) {
+        this.value = value;
         this.type = type;
     }
 
     // 문잘를 enum type으로 변환
     @JsonCreator
-    public static AccommodationType from(String type) {
+    public static AccommodationType from(String type) throws BaseException {
         for (AccommodationType t : AccommodationType.values()) {
             if (t.getType().equals(type)) {
                 return t;
             }
         }
-        return null;
+        throw new BaseException(BaseResponseStatus.TYPE_NOT_FOUND);
+    }
+
+    @JsonCreator
+    public static AccommodationType from(int value) {
+        for (AccommodationType t : AccommodationType.values()) {
+            if (t.getValue() == value) {
+                return t;
+            }
+        }
+        throw new BaseException(BaseResponseStatus.TYPE_NOT_FOUND); // 해당하는 Enum 값이 없을 때 처리
     }
 
     @JsonValue
     public String getType() {
         return type;
+    }
+    public int getValue() {
+        return value;
     }
 }

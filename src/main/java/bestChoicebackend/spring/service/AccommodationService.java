@@ -1,12 +1,12 @@
 package bestChoicebackend.spring.service;
 
-import bestChoicebackend.spring.domain.Accommodation;
-import bestChoicebackend.spring.domain.AccommodationType;
-import bestChoicebackend.spring.domain.Keyword;
-import bestChoicebackend.spring.domain.Mtype;
+import bestChoicebackend.spring.domain.*;
+import bestChoicebackend.spring.dto.SubImg.SubImgResDto;
+import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.repository.AccommodationRepository;
 import bestChoicebackend.spring.repository.KeywordRepository;
 import bestChoicebackend.spring.repository.MtypeRepository;
+import bestChoicebackend.spring.repository.SubImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,20 +15,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
-
+    private final SubImgRepository subImgRepository;
     /**
      * 숙소 상세
      * 숙소 ID로 찾아서 숙소 객체 반환
      */
-    public Accommodation findById(Long accommodationId){
-        Optional<Accommodation> accommodation =  accommodationRepository.findById(accommodationId);
-        return accommodation.orElse(null);
+//    public Accommodation findById(Long accommodationId){
+//        Optional<Accommodation> accommodation =  accommodationRepository.findById(accommodationId);
+//        return accommodation.orElse(null);
+//    }
+    public AccommodationResDto findById(Long accommodationId){
+        Accommodation accommodation =  accommodationRepository.findByAccommodationId(accommodationId)
+                .orElseThrow(() -> new RuntimeException("Accommodation not found"));
+        List<SubImg> subImgs = subImgRepository.findByAccommodationId(accommodationId);
+        List<String> subImgURLs = subImgs.stream()
+                .map(SubImg::getSubImgUrl
+                ) .toList();
+
+        return AccommodationResDto.builder()
+                .id(accommodation.getAccommodationId())
+                .accommodationName(accommodation.getAccommodationName())
+                .price(accommodation.getPrice())
+                .type(accommodation.getType())
+                .imgUrl(accommodation.getImgUrl())
+                .introduce(accommodation.getIntroduce())
+                .subImgUrls(subImgURLs).build();
     }
+
 
     public List<Accommodation> findByAccommodationType(String accommodationType){
         return accommodationRepository.findAllByTypeAndRegion(AccommodationType.valueOf(accommodationType), "서울");

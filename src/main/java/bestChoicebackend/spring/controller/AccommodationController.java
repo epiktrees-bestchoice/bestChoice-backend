@@ -2,6 +2,7 @@ package bestChoicebackend.spring.controller;
 
 import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationKeyword;
+import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.service.AccommodationKeywordService;
 import bestChoicebackend.spring.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,8 @@ public class AccommodationController {
      * 숙소 ID로 찾아서 숙소 객체 반환
      */
     @GetMapping("/api/product/accommodation/{accommodationId}")
-    public ResponseEntity<Accommodation> findById(@PathVariable("accommodationId")Long accommodationId){
-        Accommodation accommodation = accommodationService.findById(accommodationId);
+    public ResponseEntity<AccommodationResDto> findById(@PathVariable("accommodationId")Long accommodationId){
+        AccommodationResDto accommodation = accommodationService.findById(accommodationId);
         if(accommodation!=null){
             return ResponseEntity.status(HttpStatus.OK).body(accommodation);
         }
