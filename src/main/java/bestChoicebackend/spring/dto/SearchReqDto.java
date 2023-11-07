@@ -12,6 +12,8 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class SearchReqDto {
     private String region;
     private String sort;
