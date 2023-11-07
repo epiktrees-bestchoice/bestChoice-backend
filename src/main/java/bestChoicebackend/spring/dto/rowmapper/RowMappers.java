@@ -31,7 +31,6 @@ public class RowMappers {
 //            accommodation.setType(type);
 
             AccommodationType type = AccommodationType.from(rs.getInt(7));
-            log.info("product id : "+rs.getLong(1));
             return AccommodationResDto.builder()
                     .id(rs.getLong(1))
                     .accommodationName(rs.getString(2))

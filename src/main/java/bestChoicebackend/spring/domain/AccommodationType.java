@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 public enum AccommodationType {
-    HOTEL(1, "HOTEL"),
-    MOTEL(2, "MOTEL"),
-    PENSION(3, "PENSION"),
-    GUESTHOUSE(4, "GUESTHOUSE"),
-    CAMPING(5, "CAMPING");
+    HOTEL(0, "HOTEL"),
+    MOTEL(1, "MOTEL"),
+    PENSION(2, "PENSION"),
+    GUESTHOUSE(3, "GUESTHOUSE"),
+    CAMPING(4,"CAMPING");
 
     private final int value;
     private final String type;

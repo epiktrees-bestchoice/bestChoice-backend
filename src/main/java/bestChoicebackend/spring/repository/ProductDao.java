@@ -32,12 +32,12 @@ public class ProductDao {
                 placeholders.append(", ");
             }
         }
-        log.info("keyword string : "+placeholders);
+        //log.info("keyword string : "+placeholders);
         return placeholders.toString();
     }
 
 
-    public List<AccommodationResDto> checkProduct(int type, SearchReqDto searchReqDto) {
+    public List<AccommodationResDto> checkProduct(String type, SearchReqDto searchReqDto) {
         // jdbc 쿼리 작성 요령 중간에 if문 때문에 문제가 생기는듯!
         // createParameterPlaceholders에 ?를 붙여놓고 값을 입력하지 않았다.
         String BaseQuery = "SELECT a.* FROM accommodation a " +
@@ -63,13 +63,13 @@ public class ProductDao {
             parameters.add(searchReqDto.getRegion());
             parameters.addAll(searchReqDto.getKeywords());
             parameters.add(searchReqDto.getKeywords().size());
-            parameters.add(searchReqDto.getSel_date2());
             parameters.add(searchReqDto.getMin_price());
             parameters.add(searchReqDto.getMax_price());
+            parameters.add(searchReqDto.getSel_date2());
             parameters.add(searchReqDto.getSel_date());
 
-            log.info("query "+BaseQuery);
-
+            //log.info("query "+BaseQuery);
+            //log.info("params : "+ parameters);
             return jdbcTemplate.query(BaseQuery, rowMappers.accommodationRowMapper(), parameters.toArray());
         }
         catch (RuntimeException e){

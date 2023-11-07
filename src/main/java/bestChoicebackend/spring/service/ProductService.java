@@ -41,7 +41,7 @@ public class ProductService {
     public Page<AccommodationResDto> getProductWithCondition(String type, SearchReqDto searchReqDto, Pageable pageable){
         // enum null 처리
         AccommodationType accommoType = AccommodationType.from(type);
-        List<AccommodationResDto> accommodations = productDao.checkProduct(accommoType.getValue() ,searchReqDto);
+        List<AccommodationResDto> accommodations = productDao.checkProduct(accommoType.getType() ,searchReqDto);
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), accommodations.size());
         return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
