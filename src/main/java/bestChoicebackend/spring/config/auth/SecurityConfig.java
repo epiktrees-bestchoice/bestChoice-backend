@@ -47,7 +47,7 @@ public class SecurityConfig{
                                 .baseUri("/oauth2/code/*"))
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
-                        .defaultSuccessUrl("https://api.epicktrees.net/hello-world"));
+                        .defaultSuccessUrl("https://asactest.epicktrees.net/hello-world"));
 //                        .defaultSuccessUrl("http://localhost:8080"));
         return http.build();
     }
