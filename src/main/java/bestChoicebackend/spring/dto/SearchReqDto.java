@@ -11,6 +11,7 @@ import java.util.List;
 
 @Getter
 @ToString
+@NoArgsConstructor
 public class SearchReqDto {
     private String region;
     private String sort;
@@ -22,12 +23,5 @@ public class SearchReqDto {
     private LocalDate sel_date2;
     private Integer min_price; // 기본값을 0L로 설정
     private Integer max_price;
-    private List<Integer> keywords;
-    public SearchReqDto(){ // 기본 생성자
-        sel_date = LocalDate.now(); // 오늘 날짜 입력
-        sel_date2 = LocalDate.now().plusDays(1); // 내일 날짜 입력
-        min_price = 0;
-        max_price = 10000000;
-        keywords = new ArrayList<>();
-    }
+    private List<Integer> keywords = new ArrayList<>();
 }
