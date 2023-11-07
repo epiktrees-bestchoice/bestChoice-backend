@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,5 +28,6 @@ public class SearchReqDto {
         sel_date2 = LocalDate.now().plusDays(1); // 내일 날짜 입력
         min_price = 0;
         max_price = 10000000;
+        keywords = new ArrayList<>();
     }
 }

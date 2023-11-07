@@ -39,7 +39,8 @@ public class ProductDao {
         // createParameterPlaceholders에 ?를 붙여놓고 값을 입력하지 않았다.
         String BaseQuery = "SELECT a.* FROM accommodation a " +
                 "LEFT JOIN accommodation_keyword ak ON a.accommodation_id = ak.accommodation_id " +
-                "WHERE a.type = ? ";
+                "WHERE a.type = ? " +
+                "AND a.region = ? ";
 
         if(!searchReqDto.getKeywords().isEmpty()){
             log.info("keywords : "+createParameterPlaceholders(searchReqDto.getKeywords()));
@@ -56,6 +57,7 @@ public class ProductDao {
         try{
             Object[] ProductSearchObj = new Object[]{
                     type,
+                    searchReqDto.getRegion(),
                     searchReqDto.getMin_price(),
                     searchReqDto.getMax_price(),
                     Date.valueOf(searchReqDto.getSel_date2()),
