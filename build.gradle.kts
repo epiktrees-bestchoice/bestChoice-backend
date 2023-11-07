@@ -44,7 +44,16 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	// google OAuth libary
 	implementation("com.google.api-client:google-api-client:1.32.1")
+
+	//Querydsl 추가
+	implementation ("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+	annotationProcessor ("com.querydsl:querydsl-apt:5.0.0:jakarta")
+	annotationProcessor ("jakarta.annotation:jakarta.annotation-api")
+	annotationProcessor ("jakarta.persistence:jakarta.persistence-api")
+	// 쿼리 파라미터를 로그로 남기는 외부 라이브러리
+	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 }
+
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
