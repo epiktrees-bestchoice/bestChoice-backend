@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,14 +27,15 @@ public class ProductDao {
     private String createParameterPlaceholders(List<Integer> keywords) {
         StringBuilder placeholders = new StringBuilder();
         for (int i = 0; i < keywords.size(); i++) {
-            placeholders.append(keywords.get(i));
+            placeholders.append("?");
             if (i < keywords.size() - 1) {
-                placeholders.append(" ,");
+                placeholders.append(", ");
             }
         }
         log.info("keyword string : "+placeholders);
         return placeholders.toString();
     }
+
 
     public List<AccommodationResDto> checkProduct(int type, SearchReqDto searchReqDto) {
         // jdbc 쿼리 작성 요령 중간에 if문 때문에 문제가 생기는듯!
@@ -44,28 +46,31 @@ public class ProductDao {
                 "AND a.region = ? ";
 
         if(!searchReqDto.getKeywords().isEmpty()){
-            log.info("keywords : "+createParameterPlaceholders(searchReqDto.getKeywords()) +" size : "+searchReqDto.getKeywords().size());
-            BaseQuery += " AND keyword_id IN (" + createParameterPlaceholders(searchReqDto.getKeywords()) + ") ";
-        }
+            String keywordPlaceholders = createParameterPlaceholders(searchReqDto.getKeywords());
+            BaseQuery += " AND keyword_id IN (" + keywordPlaceholders + ") ";
+            }
 
-        BaseQuery +=   "GROUP BY a.accommodation_id " +
-                "HAVING COUNT(DISTINCT keyword_id) >= "+ searchReqDto.getKeywords().size() +
-                " AND a.price BETWEEN ? AND ? " +
+        BaseQuery += "GROUP BY a.accommodation_id " +
+                "HAVING COUNT(DISTINCT keyword_id) >= ? " +
+                "AND a.price BETWEEN ? AND ? " +
                 "AND a.accommodation_id NOT IN (" +
                 "SELECT accommodation_id FROM reserve " +
-                "WHERE NOT ((DATE_FORMAT(reserve_date, '%Y-%m-%d') >= ?) " +
-                "AND (DATE_FORMAT(end_date, '%Y-%m-%d') <= ? )));";
+                "WHERE NOT (DATE_FORMAT(reserve_date, '%Y-%m-%d') >= ? " +
+                "AND DATE_FORMAT(end_date, '%Y-%m-%d') <= ?));";
         try{
-            Object[] ProductSearchObj = new Object[]{
-                    type,
-                    searchReqDto.getRegion(),
-                    searchReqDto.getMin_price(),
-                    searchReqDto.getMax_price(),
-                    searchReqDto.getSel_date2(),
-                    searchReqDto.getSel_date()
-            };
+            List<Object> parameters = new ArrayList<>();
+            parameters.add(type);
+            parameters.add(searchReqDto.getRegion());
+            parameters.addAll(searchReqDto.getKeywords());
+            parameters.add(searchReqDto.getKeywords().size());
+            parameters.add(searchReqDto.getSel_date2());
+            parameters.add(searchReqDto.getMin_price());
+            parameters.add(searchReqDto.getMax_price());
+            parameters.add(searchReqDto.getSel_date());
+
             log.info("query "+BaseQuery);
-            return jdbcTemplate.query(BaseQuery, rowMappers.accommodationRowMapper(), ProductSearchObj);
+
+            return jdbcTemplate.query(BaseQuery, rowMappers.accommodationRowMapper(), parameters.toArray());
         }
         catch (RuntimeException e){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
