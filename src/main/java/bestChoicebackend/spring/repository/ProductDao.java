@@ -28,9 +28,10 @@ public class ProductDao {
         for (int i = 0; i < keywords.size(); i++) {
             placeholders.append(keywords.get(i));
             if (i < keywords.size() - 1) {
-                placeholders.append(",");
+                placeholders.append(" ,");
             }
         }
+        log.info("keyword string : "+placeholders);
         return placeholders.toString();
     }
 
@@ -43,7 +44,7 @@ public class ProductDao {
                 "AND a.region = ? ";
 
         if(!searchReqDto.getKeywords().isEmpty()){
-            log.info("keywords : "+createParameterPlaceholders(searchReqDto.getKeywords()));
+            log.info("keywords : "+createParameterPlaceholders(searchReqDto.getKeywords()) +" size : "+searchReqDto.getKeywords().size());
             BaseQuery += " AND keyword_id IN (" + createParameterPlaceholders(searchReqDto.getKeywords()) + ") ";
         }
 
@@ -60,8 +61,8 @@ public class ProductDao {
                     searchReqDto.getRegion(),
                     searchReqDto.getMin_price(),
                     searchReqDto.getMax_price(),
-                    Date.valueOf(searchReqDto.getSel_date2()),
-                    Date.valueOf(searchReqDto.getSel_date())
+                    searchReqDto.getSel_date2(),
+                    searchReqDto.getSel_date()
             };
             return jdbcTemplate.query(BaseQuery, rowMappers.accommodationRowMapper(), ProductSearchObj);
         }
