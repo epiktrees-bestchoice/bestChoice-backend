@@ -27,7 +27,7 @@ public class ProductController {
 
     @GetMapping(value = "/search/{type}")
     public Page<AccommodationResDto> getReq(@PathVariable("type") String type,
-                                            @Valid  @RequestBody SearchReqDto searchReqDto, // Controller에서 받는 json을 DTO로 변환, NotNull 판단,.
+                                            @Valid SearchReqDto searchReqDto, // Controller에서 받는 json을 DTO로 변환, NotNull 판단,.
                                             @PageableDefault(size=10, direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("type : "+type+" region : "+searchReqDto.getRegion()+" SelDate : "+searchReqDto.getSel_date()+" maxPrice : " + searchReqDto.getMax_price());
         return productService.getProductWithCondition(type, searchReqDto, pageable);
