@@ -64,6 +64,7 @@ public class ProductDao {
                     searchReqDto.getSel_date2(),
                     searchReqDto.getSel_date()
             };
+            log.info("query "+BaseQuery);
             return jdbcTemplate.query(BaseQuery, rowMappers.accommodationRowMapper(), ProductSearchObj);
         }
         catch (RuntimeException e){
