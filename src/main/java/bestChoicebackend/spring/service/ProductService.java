@@ -50,9 +50,10 @@ public class ProductService {
     }
 
     public Page<AccommodationResDto> getProductWithConditionDSL(String type, SearchReqDto searchReqDto, Pageable pageable){
-        List<AccommodationResDto> accommodations = accommodationRepository.findByConditions(type ,searchReqDto, pageable);
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), accommodations.size());
-        return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
+        Page<AccommodationResDto> accommodations = accommodationRepository.findByConditions(type ,searchReqDto, pageable);
+//        int start = (int) pageable.getOffset();
+//        int end = Math.min((start + pageable.getPageSize()), accommodations.size());
+//        return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
+        return accommodations;
     }
 }
