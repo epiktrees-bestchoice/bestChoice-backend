@@ -6,6 +6,7 @@ import bestChoicebackend.spring.dto.SearchReqDto;
 import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.exception.BaseException;
 import bestChoicebackend.spring.exception.BaseResponseStatus;
+import bestChoicebackend.spring.repository.AccommodationRepository;
 import bestChoicebackend.spring.repository.ProductDao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import java.util.regex.Pattern;
 public class ProductService {
 
     private final ProductDao productDao;
+    private final AccommodationRepository accommodationRepository;
 
     private static final String DATE_FORMAT_REGEX = "\\d{4}-\\d{2}-\\d{2}";
 
@@ -42,6 +44,13 @@ public class ProductService {
         // enum null 처리
         AccommodationType accommoType = AccommodationType.from(type);
         List<AccommodationResDto> accommodations = productDao.checkProduct(accommoType.getType() ,searchReqDto);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), accommodations.size());
+        return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
+    }
+
+    public Page<AccommodationResDto> getProductWithConditionDSL(String type, SearchReqDto searchReqDto, Pageable pageable){
+        List<AccommodationResDto> accommodations = accommodationRepository.findByConditions(type ,searchReqDto, pageable);
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), accommodations.size());
         return new PageImpl<>(accommodations.subList(start, end), pageable, accommodations.size());
