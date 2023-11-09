@@ -13,7 +13,7 @@ public class AccommodationKeyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accommodationKeywordId;
 
-    @ManyToOne // 현재 클래스 : 목표 클래스 = N : 1
+    @ManyToOne(fetch = FetchType.LAZY) // 현재 클래스 : 목표 클래스 = N : 1
     @JoinColumn(name = "accommodationId", nullable = false, columnDefinition = "Long")
     Accommodation accommodationId;
 

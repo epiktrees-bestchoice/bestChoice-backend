@@ -39,6 +39,17 @@ public class ProductController {
         return productService.getProductWithCondition(type, searchReqDto, pageable);
     }
 
+    @GetMapping(value = "/searchDSL/{type}")
+    public Page<AccommodationResDto> getReqDSL(@PathVariable("type") String type,
+                                            @ModelAttribute SearchReqDto searchReqDto,
+//                                            @RequestParam String region, @RequestParam LocalDate sel_date, @RequestParam LocalDate sel_date2,
+//                                            @RequestParam Integer min_price, @RequestParam Integer max_price, @RequestParam List<Integer> keywords,
+                                            @PageableDefault(size=10, direction = Sort.Direction.DESC) Pageable pageable) {
+
+        log.info("type : "+type+" region : "+searchReqDto.getRegion()+" SelDate : "+searchReqDto.getSel_date()+" maxPrice : " + searchReqDto.getMax_price());
+        return productService.getProductWithConditionDSL(type, searchReqDto, pageable);
+    }
+
     @GetMapping("/search/Default")
     public List<AccommodationResDto> getAccomms(){
         return productService.getJDBCProduct();

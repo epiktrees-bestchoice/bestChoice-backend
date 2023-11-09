@@ -25,8 +25,8 @@ public class SearchReqDto {
     private Integer min_price = 0; // 기본값을 0L로 설정
     private Integer max_price = 10000000;
     private List<Integer> keywords = new ArrayList<>();
-
-    private SearchReqDto (String region, String sort, LocalDate sel_date, LocalDate sel_date2, Integer min_price, Integer max_price, List<Integer> keywords){
+    private SearchReqDto (String region, String sort, LocalDate sel_date, LocalDate sel_date2,
+                          Integer min_price, Integer max_price, List<Integer> keywords){
         if (region != null) {this.region = region;}
         if (sort != null) {this.sort = sort;}
         if (sel_date != null) {this.sel_date = sel_date;}
@@ -35,4 +35,9 @@ public class SearchReqDto {
         if (max_price != null) {this.max_price = max_price;}
         if (keywords != null) {this.keywords = keywords;}
     }
+//    class InitializeUtil {
+//        private static <T> T defaultSet(T param, T defaultValue) {
+//            return param != null ? param : defaultValue;
+//        }
+//    }
 }

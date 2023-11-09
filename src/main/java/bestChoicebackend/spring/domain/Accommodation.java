@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 public class Accommodation {
@@ -29,6 +32,8 @@ public class Accommodation {
     @Column
     private String introduce; // 사장님 한마다
 
+    @OneToMany(mappedBy = "accommodationId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AccommodationKeyword> accommodationKeywords = new ArrayList<>();
 
     public Long getAccommodationId() {
         return accommodationId;
