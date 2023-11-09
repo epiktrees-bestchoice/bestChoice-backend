@@ -30,47 +30,33 @@ import java.util.List;
 import java.util.Optional;
 import java.sql.Date;
 interface AccommodationCustom { // QueryDSL은 빈에 자동 등록!!
-
     Page<AccommodationResDto> findByConditions(String type, SearchReqDto searchReqDto, Pageable pageable);
 }
-
 @RequiredArgsConstructor
-@Slf4j
 class AccommodationCustomImpl implements AccommodationCustom{
     private final JPAQueryFactory jpaQueryFactory;
-
     private BooleanExpression typeEq(String type){
         return type != null ? accommodation.type.eq(AccommodationType.valueOf(type)) : null;
     }
-
     private BooleanExpression regionEq(String region){
         return region != null ? accommodation.region.eq(region) : null;
     }
-
     private BooleanExpression keywordContain(List<Integer> keywords){
-//        return keywords != null ?  accommodationKeyword.keywordId.keywordId
-//                .in(keywords.stream().map(Long::valueOf).collect(Collectors.toList()))
-//                : null;
-        log.info(keywords.toString());
         if(keywords != null && !keywords.isEmpty()){
             List<Long> longs = keywords.stream().map(Long::valueOf).toList();
             return accommodationKeyword.keywordId.keywordId.in(longs);
         } else{return null;}// null 인 경우 항상 true로 설정
     }
-
     private BooleanExpression priceBetween(Integer minPrice, Integer maxPrice){
         return accommodation.price.between(minPrice, maxPrice);
     }
-
     private BooleanExpression reserveUnable(LocalDate selDate, LocalDate selDate2){
        Date hopeStart = Date.valueOf(selDate); // 예약
         Date hopeEnd = Date.valueOf(selDate2);
        return reserve.reserveDate.loe(hopeEnd).and(reserve.endDate.goe(hopeStart));
     }
-
     @Override
     public Page<AccommodationResDto> findByConditions(String type, SearchReqDto searchReqDto, Pageable pageable) {
-
         List<Accommodation> contents =  jpaQueryFactory.select(accommodation)
                 .from(accommodation)
                 .where(typeEq(type),
@@ -107,15 +93,12 @@ class AccommodationCustomImpl implements AccommodationCustom{
                                         .join(accommodationKeyword.keywordId, keyword)
                                         .where(keywordContain(searchReqDto.getKeywords()))
                                         .groupBy(accommodation.accommodationId)
-                                        .having(accommodation.accommodationId.count().goe(searchReqDto.getKeywords().size()))
-                        ),
+                                        .having(accommodation.accommodationId.count().goe(searchReqDto.getKeywords().size()))),
                         accommodation.accommodationId.notIn( // 예약 불가인 숙소는 표기 X
                                 JPAExpressions
                                         .select(reserve.accommodationId.accommodationId)
                                         .from(reserve)
-                                        .where(reserveUnable(searchReqDto.getSel_date(), searchReqDto.getSel_date2()))
-                        )
-                )
+                                        .where(reserveUnable(searchReqDto.getSel_date(), searchReqDto.getSel_date2()))))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchOne();
@@ -134,9 +117,7 @@ class AccommodationCustomImpl implements AccommodationCustom{
 
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long>, AccommodationCustom {
     Page<Accommodation> findByAccommodationNameContaining(String accommodationName, Pageable pageable);
-
     Optional<Accommodation> findByAccommodationId(Long accommodationId);
-
     @Query("select m from Accommodation m")
     List<Accommodation> findAllAccommodationId();
     List<Accommodation> findAllByType(AccommodationType type);
