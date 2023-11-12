@@ -1,6 +1,7 @@
 package bestChoicebackend.spring.common.validator;
 
-import com.example.solcoupang.common.annotation.PhoneNumber;
+
+import bestChoicebackend.spring.common.annotation.PhoneNumber;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

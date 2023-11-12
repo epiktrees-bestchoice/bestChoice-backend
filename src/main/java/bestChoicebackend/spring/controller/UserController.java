@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/api/v1/my")
+@RequestMapping("/api/auth")
 public class UserController {
 
     private final UserService userService;

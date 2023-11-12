@@ -38,21 +38,20 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/login")
-
-    @ResponseBody
-    public ResponseEntity<Boolean> getIsLogin(){
-        System.out.println("Redirect login page");
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "https://epicktrees.net/user");
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
-    }
-
 //    @GetMapping("/login")
-//    public String getIsLogin(){
-//
-//        return "login";
+//    @ResponseBody
+//    public ResponseEntity<Boolean> getIsLogin(){
+//        System.out.println("Redirect login page");
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Location", "https://epicktrees.net/user");
+//        return new ResponseEntity<>(headers, HttpStatus.FOUND);
 //    }
+
+    @GetMapping("/login")
+    public String getIsLogin(){
+
+        return "login";
+    }
 
     @PostMapping("/my/logout")
     public String performLogout() {

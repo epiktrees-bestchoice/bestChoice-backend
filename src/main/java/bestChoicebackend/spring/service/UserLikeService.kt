@@ -1,12 +1,15 @@
 package bestChoicebackend.spring.service
 
+import bestChoicebackend.spring.common.exceptions.UserException
+import bestChoicebackend.spring.common.status.UserResponseStatus
+import bestChoicebackend.spring.config.auth.dto.SessionUser
 import bestChoicebackend.spring.domain.UserLike
 import bestChoicebackend.spring.dto.UserLikeDto
 import bestChoicebackend.spring.repository.AccommodationRepository
 import bestChoicebackend.spring.repository.UserLikeRepository
 import bestChoicebackend.spring.repository.UserRepository
 import jakarta.persistence.EntityNotFoundException
-import org.springframework.data.repository.findByIdOrNull
+import jakarta.servlet.http.HttpSession
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,15 +21,13 @@ class UserLikeService(
 
     fun addUserLike(userLikeDto: UserLikeDto) :UserLikeDto {
         val user = userRepository.findById(userLikeDto.userId)
-            .orElseThrow { EntityNotFoundException("Not found") }
+            .orElseThrow {UserException(UserResponseStatus.USER_NOT_FOUND)}
         val accommodation = accommodationRepository.findById(userLikeDto.accommodationId)
             .orElseThrow { EntityNotFoundException("Not found") }
-
         val userLike = UserLike().apply {
             this.userId = user
             this.accommodationId = accommodation
         }
-
         val savedLike = userLikeRepository.save(userLike)
         return UserLikeDto(savedLike.userLikeId, savedLike.userId.userId, savedLike.accommodationId.accommodationId)
     }
