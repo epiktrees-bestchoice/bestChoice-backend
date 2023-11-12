@@ -1,6 +1,8 @@
 package bestChoicebackend.spring.dto;
 
 
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,7 +24,9 @@ public class SearchReqDto {
     private LocalDate sel_date = LocalDate.now();
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sel_date2 = LocalDate.now();
+    @PositiveOrZero
     private Integer min_price = 0; // 기본값을 0L로 설정
+    @PositiveOrZero
     private Integer max_price = 10000000;
     private List<Integer> keywords = new ArrayList<>();
     private SearchReqDto (String region, String sort, LocalDate sel_date, LocalDate sel_date2,
