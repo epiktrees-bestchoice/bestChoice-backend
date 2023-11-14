@@ -1,8 +1,11 @@
 package bestChoicebackend.spring.service;
 
+import bestChoicebackend.spring.common.exceptions.ProductException;
+import bestChoicebackend.spring.common.status.ProductResponseStatus;
 import bestChoicebackend.spring.domain.*;
 import bestChoicebackend.spring.dto.SubImg.SubImgResDto;
 import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
+import bestChoicebackend.spring.exception.BaseException;
 import bestChoicebackend.spring.repository.AccommodationRepository;
 import bestChoicebackend.spring.repository.KeywordRepository;
 import bestChoicebackend.spring.repository.MtypeRepository;
@@ -32,7 +35,7 @@ public class AccommodationService {
 //    }
     public AccommodationResDto findById(Long accommodationId){
         Accommodation accommodation =  accommodationRepository.findByAccommodationId(accommodationId)
-                .orElseThrow(() -> new RuntimeException("Accommodation not found"));
+                .orElseThrow(() -> new ProductException(ProductResponseStatus.ACCOMMODATION_NOT_FOUND));
         List<SubImg> subImgs = subImgRepository.findByAccommodationId(accommodationId);
         List<String> subImgURLs = subImgs.stream()
                 .map(SubImg::getSubImgUrl

@@ -28,7 +28,7 @@ public class ProductController {
     private final ProductService productService;
     private final SubImgService subImgService;
 
-    @GetMapping(value = "/search/{type}")
+    @GetMapping(value = "/searchJdbc/{type}")
     public Page<AccommodationResDto> getReq(@PathVariable("type") String type,
                                                 @ModelAttribute SearchReqDto searchReqDto,
 //                                            @RequestParam String region, @RequestParam LocalDate sel_date, @RequestParam LocalDate sel_date2,
@@ -39,7 +39,7 @@ public class ProductController {
         return productService.getProductWithCondition(type, searchReqDto, pageable);
     }
 
-    @GetMapping(value = "/searchDSL/{type}")
+    @GetMapping(value = "/search/{type}")
     public Page<AccommodationResDto> getReqDSL(@PathVariable("type") String type,
                                             @ModelAttribute SearchReqDto searchReqDto,
 //                                            @RequestParam String region, @RequestParam LocalDate sel_date, @RequestParam LocalDate sel_date2,
