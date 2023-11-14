@@ -23,8 +23,8 @@ jobs :
       - name: Build with Gradle
         run: ./gradlew build -x test
 
-      - name: Copy Jar
-        run: cp ./build/libs/spring-0.0.1-SNAPSHOT.jar app1.jar
+      - name: Zip Files
+        run: zip deploy.zip ./build/libs/spring-0.0.1-SNAPSHOT.jar ./ready.sh ./start.sh ./appspec.yml
 
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -35,4 +35,4 @@ jobs :
 
       - name: Upload Jar Compose to S3
         run: |
-          aws s3 cp app1.jar s3://solsol-springboot-s3/app1.jar
+          aws s3 cp deploy.zip s3://solsol-springboot-s3/deploy.zip
