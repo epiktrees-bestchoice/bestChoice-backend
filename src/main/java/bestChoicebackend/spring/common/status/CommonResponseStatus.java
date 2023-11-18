@@ -1,10 +1,8 @@
 package bestChoicebackend.spring.common.status;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Getter
-public enum CommonResponseStatus {
+public enum CommonResponseStatus implements BaseResponseStatus {
     // 유효성 검사와 성공 응답 코드 관리
     SUCCESS(true, HttpStatus.OK, "요청에 성공하였습니다."),
     NO_CONTENT(true, HttpStatus.NO_CONTENT, "요청에 성공했지만, 컨텐츠는 없습니다."),
@@ -20,5 +18,20 @@ public enum CommonResponseStatus {
         this.isSuccess = isSuccess;
         this.code = code;
         this.message = message;
+    }
+
+    @Override
+    public boolean getIsSuccess() {
+        return isSuccess;
+    }
+
+    @Override
+    public HttpStatus getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

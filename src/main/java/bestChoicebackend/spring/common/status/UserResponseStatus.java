@@ -1,10 +1,9 @@
 package bestChoicebackend.spring.common.status;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Getter
-public enum UserResponseStatus {
+
+public enum UserResponseStatus implements BaseResponseStatus {
 
     POST_INVAILD_ARGUMENT(false, HttpStatus.BAD_REQUEST, "올바른 입력 형식이 아닙니다."),
     POST_USERS_EMPTY_EMAIL(false, HttpStatus.BAD_REQUEST, "이메일을 입력해주세요."),
@@ -27,5 +26,20 @@ public enum UserResponseStatus {
         this.isSuccess = isSuccess;
         this.code = code;
         this.message = message;
+    }
+
+    @Override
+    public boolean getIsSuccess() {
+        return isSuccess;
+    }
+
+    @Override
+    public HttpStatus getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

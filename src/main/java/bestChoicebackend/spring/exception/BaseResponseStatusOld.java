@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public enum BaseResponseStatus {
+public enum BaseResponseStatusOld {
     // httpstatus는 code 대신 HttpsStatus 열거형 쓰는게 더 표준적
 
     SUCCESS(true, HttpStatus.OK, "요청에 성공하였습니다."),
@@ -26,7 +26,7 @@ public enum BaseResponseStatus {
     private final HttpStatus code;
     private final String message;
 
-    private BaseResponseStatus(boolean isSuccess, HttpStatus code, String message) {
+    private BaseResponseStatusOld(boolean isSuccess, HttpStatus code, String message) {
         this.isSuccess = isSuccess;
         this.code = code;
         this.message = message;

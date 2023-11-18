@@ -1,20 +1,17 @@
 package bestChoicebackend.spring.repository;
 
-import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.dto.SearchReqDto;
 import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
 import bestChoicebackend.spring.dto.rowmapper.RowMappers;
-import bestChoicebackend.spring.exception.BaseException;
-import bestChoicebackend.spring.exception.BaseResponseStatus;
+import bestChoicebackend.spring.exception.BaseExceptionOld;
+import bestChoicebackend.spring.exception.BaseResponseStatusOld;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -73,7 +70,7 @@ public class ProductDao {
             return jdbcTemplate.query(BaseQuery, rowMappers.accommodationRowMapper(), parameters.toArray());
         }
         catch (RuntimeException e){
-            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+            throw new BaseExceptionOld(BaseResponseStatusOld.DATABASE_ERROR);
         }
     }
 

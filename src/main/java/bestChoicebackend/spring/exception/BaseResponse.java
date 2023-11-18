@@ -18,13 +18,13 @@ public class BaseResponse<T> {
     private T result;
 
     public BaseResponse(T result) {
-        this.isSuccess = BaseResponseStatus.SUCCESS.isSuccess();
-        this.message = BaseResponseStatus.SUCCESS.getMessage();
-        this.code = BaseResponseStatus.SUCCESS.getCode();
+        this.isSuccess = BaseResponseStatusOld.SUCCESS.isSuccess();
+        this.message = BaseResponseStatusOld.SUCCESS.getMessage();
+        this.code = BaseResponseStatusOld.SUCCESS.getCode();
         this.result = result;
     }
 
-    public BaseResponse(BaseResponseStatus status) {
+    public BaseResponse(BaseResponseStatusOld status) {
         this.isSuccess = status.isSuccess();
         this.message = status.getMessage();
         this.code = status.getCode();

@@ -1,11 +1,7 @@
 package bestChoicebackend.spring.controller
 
-import bestChoicebackend.spring.common.exceptions.UserException
-import bestChoicebackend.spring.common.status.UserResponseStatus
-import bestChoicebackend.spring.config.auth.dto.SessionUser
 import bestChoicebackend.spring.dto.UserLikeDto
 import bestChoicebackend.spring.service.UserLikeService
-import jakarta.servlet.http.HttpSession
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping

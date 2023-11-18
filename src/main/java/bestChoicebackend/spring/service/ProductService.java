@@ -1,11 +1,8 @@
 package bestChoicebackend.spring.service;
 
-import bestChoicebackend.spring.domain.Accommodation;
 import bestChoicebackend.spring.domain.AccommodationType;
 import bestChoicebackend.spring.dto.SearchReqDto;
 import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
-import bestChoicebackend.spring.exception.BaseException;
-import bestChoicebackend.spring.exception.BaseResponseStatus;
 import bestChoicebackend.spring.repository.AccommodationRepository;
 import bestChoicebackend.spring.repository.ProductDao;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +12,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 

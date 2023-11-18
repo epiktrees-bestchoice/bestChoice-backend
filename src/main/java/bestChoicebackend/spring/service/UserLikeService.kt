@@ -2,14 +2,12 @@ package bestChoicebackend.spring.service
 
 import bestChoicebackend.spring.common.exceptions.UserException
 import bestChoicebackend.spring.common.status.UserResponseStatus
-import bestChoicebackend.spring.config.auth.dto.SessionUser
 import bestChoicebackend.spring.domain.UserLike
 import bestChoicebackend.spring.dto.UserLikeDto
 import bestChoicebackend.spring.repository.AccommodationRepository
 import bestChoicebackend.spring.repository.UserLikeRepository
 import bestChoicebackend.spring.repository.UserRepository
 import jakarta.persistence.EntityNotFoundException
-import jakarta.servlet.http.HttpSession
 import org.springframework.stereotype.Service
 
 @Service

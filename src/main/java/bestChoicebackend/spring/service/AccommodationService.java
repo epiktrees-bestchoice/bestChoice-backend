@@ -3,22 +3,15 @@ package bestChoicebackend.spring.service;
 import bestChoicebackend.spring.common.exceptions.ProductException;
 import bestChoicebackend.spring.common.status.ProductResponseStatus;
 import bestChoicebackend.spring.domain.*;
-import bestChoicebackend.spring.dto.SubImg.SubImgResDto;
 import bestChoicebackend.spring.dto.accommodationDto.AccommodationResDto;
-import bestChoicebackend.spring.exception.BaseException;
 import bestChoicebackend.spring.repository.AccommodationRepository;
-import bestChoicebackend.spring.repository.KeywordRepository;
-import bestChoicebackend.spring.repository.MtypeRepository;
 import bestChoicebackend.spring.repository.SubImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

@@ -1,11 +1,9 @@
 package bestChoicebackend.spring.common.status;
 
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Getter
-public enum ProductResponseStatus {
+public enum ProductResponseStatus implements BaseResponseStatus {
     // httpstatus는 code 대신 HttpsStatus 열거형 쓰는게 더 표준적
 
     DATA_NOT_FOUND(false,HttpStatus.INTERNAL_SERVER_ERROR,"존재하지 않는 상품입니다."),
@@ -20,5 +18,20 @@ public enum ProductResponseStatus {
         this.isSuccess = isSuccess;
         this.code = code;
         this.message = message;
+    }
+
+    @Override
+    public boolean getIsSuccess() {
+        return isSuccess;
+    }
+
+    @Override
+    public HttpStatus getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 }
