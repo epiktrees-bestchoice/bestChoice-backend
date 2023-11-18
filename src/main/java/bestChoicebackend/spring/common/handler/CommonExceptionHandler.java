@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class CommonExceptionHandler {
 
+    // 도메인은 다르지만 공통적인 포멧의 예외를 처리하는 핸들러
     @ExceptionHandler(value = {ProductException.class, UserException.class, CommonException.class})
     public BaseResponse baseHandlerException(BaseException baseException){
         log.error("Exception invoke, {} ", baseException.getStackTrace()[0]);
